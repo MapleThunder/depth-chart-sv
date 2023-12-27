@@ -13,7 +13,15 @@ html {
 	/* Variables */
 	--column: 80rem;
 	--side: 1rem;
-	--accent: hsl(0, 2%, 8%);
+	--blue: hsl(208, 74%, 30%);
+	--black: hsl(0, 2%, 12%);
+	--white: hsl(0, 2%, 89%);
+
+	--accent: var(--black);
+	--primary: var(--blue);
+	--text-light: var(--white);
+	--border: 1px solid var(--black);
+	--border-radius: 7px;
 
 	background: radial-gradient(circle at 50% 0%, hsl(132, 96%, 31%), hsl(132, 96%, 25%));
 	background-attachment: fixed;
