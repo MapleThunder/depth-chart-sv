@@ -2,7 +2,6 @@ import { Formation } from "./stores/formation_store";
 
 export enum Position {
 	Striker = "ST",
-	CentreForward = "CF",
 
 	LeftWing = "LW",
 	LeftMid = "LM",

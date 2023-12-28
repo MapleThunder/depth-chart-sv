@@ -5,7 +5,7 @@
 	export let positionData: PositionData;
 </script>
 
-<div class="position-box-wrapper">
+<div class="position-box-wrapper" style="grid-area: {positionData?.position}">
 	<div class="position-header">
 		{getPositionUILabel(positionData?.position)}
 		<!-- TODO: Background colour should change based on position and depth preference -->
@@ -22,6 +22,9 @@
 	.position-box-wrapper {
 		border: var(--border);
 		border-radius: var(--border-radius);
+		background-color: var(--paper);
+		width: 300px;
+		min-height: 150px;
 	}
 
 	.position-header {

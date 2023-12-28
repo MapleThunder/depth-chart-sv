@@ -24,5 +24,20 @@
 		display: grid;
 		grid-template-columns: 1fr 3fr;
 		gap: 20px;
+		margin: 0 auto;
+		max-width: var(--column);
+	}
+
+	.position-boxes {
+		margin-top: 1rem;
+		display: grid;
+		gap: 5px;
+		grid-template-areas:
+			".. ST .."
+			"LW CAM RW"
+			"LM CM RM"
+			"LWB CDM RWB"
+			"LB CB RB"
+			".. GK ..";
 	}
 </style>

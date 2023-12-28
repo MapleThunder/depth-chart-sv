@@ -23,13 +23,38 @@
 				<option value={option.value}>{option.label}</option>
 			{/each}
 		</select>
+		<button type="submit" name="add-player">Add Player</button>
 	</form>
 </div>
 
 <style>
-	.form-wrapper,
+	.form-wrapper {
+		height: fit-content;
+		padding: 15px;
+		background-color: var(--paper);
+		border-radius: 0 0 5px 5px;
+	}
+
 	form {
 		display: flex;
 		flex-direction: column;
+		gap: 5px;
+	}
+
+	button {
+		background-color: var(--primary);
+		color: var(--text-light);
+		padding: 7px;
+		width: fit-content;
+		border-radius: 5px;
+		align-self: flex-end;
+		border: 1px solid transparent;
+	}
+
+	button:hover,
+	button:focus {
+		background-color: var(--accent);
+		color: var(--text-dark);
+		border: 1px solid var(--black);
 	}
 </style>

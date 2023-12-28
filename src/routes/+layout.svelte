@@ -59,10 +59,15 @@
 		max-width: var(--column);
 		padding: 0 var(--side);
 		margin: 0 auto;
+		flex-shrink: 0;
 	}
 	.header-controls {
 		display: flex;
 		gap: 1rem;
+	}
+
+	main {
+		flex-grow: 1;
 	}
 
 	footer {
@@ -70,5 +75,6 @@
 		justify-content: center;
 		align-items: center;
 		align-self: flex-end;
+		flex-shrink: 0;
 	}
 </style>
