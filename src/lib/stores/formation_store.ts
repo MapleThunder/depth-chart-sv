@@ -1,5 +1,6 @@
 import { getPositionUILabelFromKey } from "$lib/positions";
 import { writable } from "svelte/store";
+import { browser } from "$app/environment";
 
 export enum Formation {
 	ThreeFourThree = "343",
@@ -17,8 +18,6 @@ export type FormationOption = {
 	value: Formation;
 };
 
-export const formation = writable<Formation>(Formation.FourFourTwo);
-
 export function getFormationSelectOptions(): FormationOption[] {
 	const options = [];
 	for (const [key, value] of Object.entries(Formation)) {
@@ -26,3 +25,16 @@ export function getFormationSelectOptions(): FormationOption[] {
 	}
 	return options;
 }
+
+const defaultValue = Formation.FourFourTwo;
+const initialValue = browser
+	? window.localStorage.getItem("formation_store") ?? defaultValue
+	: defaultValue;
+
+export const formation = writable(initialValue);
+
+formation.subscribe((value) => {
+	if (browser) {
+		window.localStorage.setItem("formation_store", value);
+	}
+});

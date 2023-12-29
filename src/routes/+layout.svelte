@@ -1,5 +1,5 @@
-<script>
-	import { getFormationSelectOptions, formation } from "$lib/stores/formation_store";
+<script lang="ts">
+	import { formation, getFormationSelectOptions } from "$lib/stores/formation_store";
 	import "../styles.css";
 
 	const formationOptions = getFormationSelectOptions();
@@ -11,12 +11,7 @@
 
 		<div class="header-controls">
 			<div class="formation-selection">
-				<select
-					bind:value={$formation}
-					on:change={(e) => {
-						console.log("FORMATION_CHANGE", e.target);
-					}}
-				>
+				<select bind:value={$formation}>
 					{#each formationOptions as option}
 						<option value={option.value}>{option.label}</option>
 					{/each}
