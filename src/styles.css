@@ -16,6 +16,7 @@ html {
 	--blue: hsl(208, 74%, 30%);
 	--black: hsl(0, 2%, 12%);
 	--white: hsl(0, 2%, 89%);
+	--red: hsl(0, 100%, 50%);
 	--paper: hsl(0, 2%, 89%);
 	--yellow: hsl(54, 87%, 62%);
 
@@ -23,6 +24,8 @@ html {
 	--primary: var(--blue);
 	--text-light: var(--white);
 	--text-dark: var(--black);
+	--error: var(--red);
+
 	--border: 1px solid var(--black);
 	--border-radius: 7px;
 

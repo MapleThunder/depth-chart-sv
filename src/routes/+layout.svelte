@@ -18,9 +18,9 @@
 				</select>
 			</div>
 
-			<div class="clear">
+			<div class="clear-btn-wrapper">
 				<!-- TODO: Add clear functionality to clear all data from local storage -->
-				<button>Clear</button>
+				<button id="clear-btn">Clear Players</button>
 			</div>
 		</div>
 	</div>
@@ -59,6 +59,18 @@
 	.header-controls {
 		display: flex;
 		gap: 1rem;
+	}
+	.formation-selection {
+		display: flex;
+		align-items: center;
+	}
+
+	button#clear-btn {
+		background-color: var(--error);
+		border: 1px solid transparent;
+		padding: 0.4rem 1rem;
+		color: var(--text-light);
+		border-radius: var(--border-radius);
 	}
 
 	main {
