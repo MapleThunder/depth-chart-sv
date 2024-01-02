@@ -73,6 +73,11 @@
 		border-radius: var(--border-radius);
 	}
 
+	button#clear-btn:hover,
+	button#clear-btn:focus {
+		background-color: var(--red-dark);
+	}
+
 	main {
 		flex-grow: 1;
 	}

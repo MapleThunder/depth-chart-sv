@@ -17,6 +17,7 @@ html {
 	--black: hsl(0, 2%, 12%);
 	--white: hsl(0, 2%, 89%);
 	--red: hsl(0, 100%, 50%);
+	--red-dark: hsl(0, 100%, 40%);
 	--paper: hsl(0, 2%, 89%);
 	--yellow: hsl(54, 87%, 62%);
 
