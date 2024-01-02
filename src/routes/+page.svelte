@@ -1,11 +1,18 @@
 <script lang="ts">
 	import PlayerEntryForm from "./PlayerEntryForm.svelte";
 	import { formation } from "$lib/stores/formation_store";
-	import { getPositionsForFormation, type PositionData } from "$lib/positions";
+	import { getPositionsForFormation, Position, type PositionData } from "$lib/positions";
 	import PositionBox from "./PositionBox.svelte";
+	import { players } from "$lib/stores/player_store";
 
 	let positions: PositionData[];
 	$: $formation, (positions = getPositionsForFormation($formation));
+
+	// TODO: Remove this hardcoded players list
+	$players = [
+		{ name: "Nimick", positions: [Position.Centreback] },
+		{ name: "Callegari", positions: [Position.CentreMid] },
+	];
 </script>
 
 <div class="content">

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formation, getFormationSelectOptions } from "$lib/stores/formation_store";
+	import { resetPlayers } from "$lib/stores/player_store";
 	import "../styles.css";
 
 	const formationOptions = getFormationSelectOptions();
@@ -19,8 +20,7 @@
 			</div>
 
 			<div class="clear-btn-wrapper">
-				<!-- TODO: Add clear functionality to clear all data from local storage -->
-				<button id="clear-btn">Clear Players</button>
+				<button id="clear-btn" on:click={() => resetPlayers()}>Clear Players</button>
 			</div>
 		</div>
 	</div>

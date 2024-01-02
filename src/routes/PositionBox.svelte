@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { getPositionUILabel, type PositionData } from "$lib/positions";
+	import { players } from "$lib/stores/player_store";
 	import PlayerRow from "./PlayerRow.svelte";
 
 	export let positionData: PositionData;
+	let filtered_players = $players.filter((player) =>
+		player.positions.includes(positionData.position),
+	);
 </script>
 
 <div class="position-box-wrapper" style="grid-area: {positionData?.position}">
@@ -12,8 +16,9 @@
 	</div>
 	<div class="player-list">
 		<ul>
-			<!-- TODO: Loop over players for this position & display them -->
-			<PlayerRow />
+			{#each filtered_players as player}
+				<PlayerRow {player} />
+			{/each}
 		</ul>
 	</div>
 </div>
