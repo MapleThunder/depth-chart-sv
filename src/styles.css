@@ -21,15 +21,15 @@ html {
 	--red: hsl(0, 100%, 50%);
 	--red-dark: hsl(0, 100%, 40%);
 	--paper: hsl(0, 2%, 89%);
-	--yellow: hsl(54, 87%, 62%);
-
-	--accent: var(--yellow);
+	--yellow: hsl(54, 87%, 62%) --accent: var(--yellow);
 	--primary: var(--blue);
+	--drag-highlight: hsl(54, 87%, 62%, 0.4);
 	--text-light: var(--white);
 	--text-dark: var(--black);
 	--error: var(--red);
 
 	--border: 1px solid var(--black);
+	--debug-border: 1px dashed red;
 	--border-radius: 7px;
 	--font-family: Nunito, Verdana, Geneva, Tahoma, sans-serif;
 

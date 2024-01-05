@@ -1,7 +1,7 @@
 <script lang="ts">
+	import ReorderableList from "./ReorderablePlayerList.svelte";
 	import { getPositionUILabel, type PositionData } from "$lib/positions";
 	import { players } from "$lib/stores/player_store";
-	import PlayerRow from "./PlayerRow.svelte";
 
 	export let positionData: PositionData;
 	$: filtered_players = $players.filter((player) =>
@@ -31,11 +31,7 @@
 		<!-- TODO: Background colour should change based on position and depth preference -->
 	</div>
 	<div class="player-list">
-		<ul>
-			{#each filtered_players as player}
-				<PlayerRow {player} />
-			{/each}
-		</ul>
+		<ReorderableList list={filtered_players} />
 	</div>
 </div>
 
@@ -60,10 +56,5 @@
 		padding: 0 1rem 1rem 1rem;
 		width: 100%;
 		height: 100%;
-	}
-
-	ul {
-		margin: 0;
-		padding: 0 0 0 10px;
 	}
 </style>
