@@ -4,12 +4,28 @@
 	import PlayerRow from "./PlayerRow.svelte";
 
 	export let positionData: PositionData;
-	let filtered_players = $players.filter((player) =>
+	$: filtered_players = $players.filter((player) =>
 		player.positions.includes(positionData.position),
 	);
+
+	function mapPositionToGridArea(position: string): string {
+		switch (position) {
+			case "LWB":
+				return "LB";
+			case "CDM":
+				return "CM";
+			case "RWB":
+				return "RB";
+			default:
+				return position;
+		}
+	}
 </script>
 
-<div class="position-box-wrapper" style="grid-area: {positionData?.position}">
+<div
+	class="position-box-wrapper"
+	style="grid-area: {mapPositionToGridArea(positionData?.position)}"
+>
 	<div class="position-header">
 		{getPositionUILabel(positionData?.position)}
 		<!-- TODO: Background colour should change based on position and depth preference -->

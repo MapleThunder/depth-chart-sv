@@ -3,16 +3,9 @@
 	import { formation } from "$lib/stores/formation_store";
 	import { getPositionsForFormation, Position, type PositionData } from "$lib/positions";
 	import PositionBox from "./PositionBox.svelte";
-	import { players } from "$lib/stores/player_store";
 
 	let positions: PositionData[];
 	$: $formation, (positions = getPositionsForFormation($formation));
-
-	// TODO: Remove this hardcoded players list
-	$players = [
-		{ name: "Nimick", positions: [Position.Centreback] },
-		{ name: "Callegari", positions: [Position.CentreMid] },
-	];
 </script>
 
 <div class="content">
@@ -42,7 +35,6 @@
 			".. ST .."
 			"LW CAM RW"
 			"LM CM RM"
-			"LWB CDM RWB"
 			"LB CB RB"
 			".. GK ..";
 	}

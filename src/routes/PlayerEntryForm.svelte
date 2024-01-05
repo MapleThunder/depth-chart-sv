@@ -16,7 +16,7 @@
 		const new_player = { name: player_name, positions: player_positions };
 		console.log("add new player", new_player);
 
-		// addPlayer(new_player);
+		addPlayer(new_player);
 	}
 </script>
 

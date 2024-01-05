@@ -31,31 +31,11 @@ function loadInitialValue(): PlayerRecord[] {
 }
 
 export function addPlayer(new_player: PlayerRecord) {
-	// TODO: This should be the contents of the store. I need to access the contents from inside this file
-	const store_contents: PlayerRecord[] = [];
-
-	// Check to see if the player exists in the store
-	const existing_record = store_contents.find(
-		(player_record) => player_record.name === new_player.name,
-	);
-	// Update the positions if it exists
-	if (existing_record) {
-		const combined_positions = [...existing_record.positions, ...new_player.positions];
-		const new_record = { name: new_player.name, positions: combined_positions };
-		players.set([
-			...store_contents.filter((record) => record.name !== new_player.name),
-			new_record,
-		]);
-	} else {
-		// Add the player if it doesn't exist
-		players.set([...store_contents, new_player]);
-	}
+	players.update((store_contents) => [...store_contents, new_player]);
 }
 
 export function removePlayer(player: PlayerRecord) {
-	// TODO: This should be the contents of the store. I need to access the contents from inside this file
-	const store_contents: PlayerRecord[] = [];
-	players.set([...store_contents.filter((record) => record.name !== player.name)]);
+	players.update((store_contents) => store_contents.filter((p) => p.name !== player.name));
 }
 
 export function resetPlayers() {

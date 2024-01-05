@@ -60,10 +60,6 @@ export const MID_THREE_ATT = [
 	{ position: Position.CentreMid, amount: 2 },
 	{ position: Position.CentreAttackingMid, amount: 1 },
 ];
-export const MID_THREE_DEF = [
-	{ position: Position.CentreMid, amount: 2 },
-	{ position: Position.CentreDefensiveMid, amount: 1 },
-];
 export const MID_FOUR = [
 	{ position: Position.LeftMid, amount: 1 },
 	...MID_TWO,
@@ -71,7 +67,7 @@ export const MID_FOUR = [
 ];
 export const MID_FIVE = [
 	{ position: Position.LeftMid, amount: 1 },
-	...MID_THREE_DEF,
+	...MID_THREE_FLAT,
 	{ position: Position.RightMid, amount: 1 },
 ];
 
