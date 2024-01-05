@@ -54,7 +54,7 @@
 		if (e.touches.length == 1 && e.targetTouches[0].target instanceof HTMLElement) {
 			_el = e.targetTouches[0].target;
 			defaultBackgroundColour = _el.style.backgroundColor;
-			_el.style.backgroundColor = "#e5e5e5";
+			_el.style.backgroundColor = "var(--drag-highlight)";
 		}
 	}
 
@@ -78,10 +78,6 @@
 		_el.style.backgroundColor = defaultBackgroundColour;
 	}
 </script>
-
-<svelte:head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-</svelte:head>
 
 <ul>
 	{#each list as player}
