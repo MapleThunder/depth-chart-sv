@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 * {
 	position: relative;
 	box-sizing: border-box;
@@ -29,6 +31,7 @@ html {
 
 	--border: 1px solid var(--black);
 	--border-radius: 7px;
+	--font-family: Nunito, Verdana, Geneva, Tahoma, sans-serif;
 
 	background: radial-gradient(circle at 50% 0%, hsl(132, 96%, 31%), hsl(132, 96%, 25%));
 	background-attachment: fixed;
@@ -38,4 +41,5 @@ html {
 body {
 	display: flex;
 	flex-direction: column;
+	font-family: var(--font-family);
 }

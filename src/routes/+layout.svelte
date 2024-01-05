@@ -8,7 +8,7 @@
 
 <header>
 	<div class="header-content">
-		<a href="/"> Depth Chart </a>
+		Depth Chart
 
 		<div class="header-controls">
 			<div class="formation-selection">
@@ -37,12 +37,9 @@
 	footer {
 		width: 100%;
 		height: 3rem;
+		min-height: 40px;
 		color: var(--text-light);
 		background-color: var(--primary);
-	}
-
-	header a {
-		color: var(--text-light);
 	}
 
 	.header-content {
@@ -63,6 +60,11 @@
 	.formation-selection {
 		display: flex;
 		align-items: center;
+	}
+
+	select {
+		padding: 0.4rem;
+		border-radius: var(--border-radius);
 	}
 
 	button#clear-btn {
@@ -88,5 +90,6 @@
 		align-items: center;
 		align-self: flex-end;
 		flex-shrink: 0;
+		margin-top: 1rem;
 	}
 </style>
