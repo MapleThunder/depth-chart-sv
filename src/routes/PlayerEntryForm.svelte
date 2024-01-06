@@ -10,15 +10,14 @@
 	}));
 
 	let player_name = "";
+	let player_position: Position;
 	let player_name_input: HTMLInputElement;
 
 	function handleAddPlayer(event: { currentTarget: EventTarget & HTMLFormElement }) {
-		const data = new FormData(event.currentTarget);
-		const new_player_name = (data.get("player_name") as string) ?? "";
-		const player_positions = data.getAll("player_positions") as Position[];
-		const new_player = { name: new_player_name, positions: player_positions };
+		const new_player = { name: player_name, positions: [player_position] };
 
 		player_name = "";
+		player_position = Position.Striker;
 		player_name_input.focus();
 		addPlayer(new_player);
 	}
@@ -36,7 +35,7 @@
 			placeholder="Eustáquio"
 		/>
 		<label for="player_positions">Position(s)</label>
-		<select name="player_positions">
+		<select name="player_positions" bind:value={player_position}>
 			{#each position_options as option}
 				<option value={option.value}>{option.label}</option>
 			{/each}

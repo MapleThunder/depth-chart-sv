@@ -53,7 +53,6 @@
 	}
 
 	.player-list {
-		padding: 0 1rem 1rem 1rem;
 		width: 100%;
 		height: 100%;
 	}

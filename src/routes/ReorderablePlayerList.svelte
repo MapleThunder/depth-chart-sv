@@ -3,7 +3,8 @@
 	 * The basis for this component was pulled from this REPL:
 	 * https://svelte.dev/repl/2cf25d5fd92b4163a356679c4315d386?version=3.15.0
 	 */
-	import type { PlayerRecord } from "$lib/stores/player_store";
+	import Icon from "@iconify/svelte";
+	import { removePlayer, type PlayerRecord } from "$lib/stores/player_store";
 
 	export let list: PlayerRecord[];
 	let _el: HTMLElement;
@@ -90,9 +91,19 @@
 			on:touchmove={touchMove}
 			on:touchend={touchEnd}
 		>
-			<!-- TODO: Add drag handle to show users the player names can be dragged -->
-			{player.name}
-			<!-- TODO: Add an edit button to open an edit modal -->
+			<div class="row">
+				<div class="player-name-wrapper">
+					<Icon icon="system-uicons:drag" />
+					{player.name}
+				</div>
+				<button
+					id="remove-button"
+					name="remove-player-button"
+					on:click={() => removePlayer({ name: player.name, positions: [] })}
+				>
+					<Icon icon="material-symbols:close" />
+				</button>
+			</div>
 		</li>
 	{/each}
 </ul>
@@ -111,11 +122,30 @@
 	li {
 		user-select: none;
 		width: 200px;
-		border: var(--debug-border); /* TODO: Remove debug border*/
-		/* border: solid 1px grey; */
+		border-bottom: solid 1px hsl(0, 1%, 72%);
 		padding: 10px;
 		text-align: center;
 		padding: 5px 0;
 		width: 100%;
+	}
+
+	div.row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 1rem;
+	}
+
+	div.player-name-wrapper {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	button#remove-button {
+		border: none;
+		background-color: transparent;
+		display: flex;
+		align-items: center;
 	}
 </style>
