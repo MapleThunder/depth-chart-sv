@@ -3,13 +3,17 @@
 	import { formation } from "$lib/stores/formation_store";
 	import { getPositionsForFormation, Position, type PositionData } from "$lib/positions";
 	import PositionBox from "./PositionBox.svelte";
+	import Legend from "./Legend.svelte";
 
 	let positions: PositionData[];
 	$: $formation, (positions = getPositionsForFormation($formation));
 </script>
 
-<div class="content">
-	<PlayerEntryForm />
+<div id="content">
+	<div id="left-column">
+		<PlayerEntryForm />
+		<Legend />
+	</div>
 
 	<div class="position-boxes">
 		{#each positions as positionData}
@@ -19,12 +23,18 @@
 </div>
 
 <style>
-	.content {
+	div#content {
 		display: grid;
 		grid-template-columns: 1fr 3fr;
 		gap: 20px;
 		margin: 0 auto;
 		max-width: var(--column);
+	}
+
+	div#left-column {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 	}
 
 	.position-boxes {

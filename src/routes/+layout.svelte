@@ -12,9 +12,10 @@
 
 <header>
 	<div class="header-content">
-		Depth Chart
+		<a class="home-link" href="/">Depth Chart</a>
 
 		<div class="header-controls">
+			<a href="/how-to-use" class="help-link">How to Use</a>
 			<div class="formation-selection">
 				<select bind:value={$formation}>
 					{#each formationOptions as option}
@@ -41,7 +42,7 @@
 	footer {
 		width: 100%;
 		height: 3rem;
-		min-height: 40px;
+		min-height: 50px;
 		color: var(--text-light);
 		background-color: var(--primary);
 	}
@@ -56,10 +57,12 @@
 		padding: 0 var(--side);
 		margin: 0 auto;
 		flex-shrink: 0;
+		color: var(--white);
 	}
 	.header-controls {
 		display: flex;
 		gap: 1rem;
+		align-items: center;
 	}
 	.formation-selection {
 		display: flex;
@@ -69,6 +72,20 @@
 	select {
 		padding: 0.4rem;
 		border-radius: var(--border-radius);
+	}
+
+	a {
+		color: var(--text-light);
+		text-decoration: none;
+		border: 3px solid transparent;
+	}
+	a:hover,
+	a:focus {
+		border-bottom: 3px solid var(--accent);
+	}
+
+	a.home-link {
+		font-size: 1.5rem;
 	}
 
 	button#clear-btn {
