@@ -4,16 +4,18 @@
 	import { addPlayer } from "$lib/stores/player_store";
 
 	$: positions = getPositionsForFormation($formation);
-	$: position_options = positions.map((pos) => ({
-		label: getPositionUILabel(pos.position),
-		value: pos.position,
-	}));
+	$: position_options = positions
+		.map((pos) => ({
+			label: getPositionUILabel(pos.position),
+			value: pos.position,
+		}))
+		.sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
 
 	let player_name = "";
 	let player_position: Position;
 	let player_name_input: HTMLInputElement;
 
-	function handleAddPlayer(event: { currentTarget: EventTarget & HTMLFormElement }) {
+	function handleAddPlayer() {
 		const new_player = { name: player_name, positions: [player_position] };
 
 		player_name = "";

@@ -26,12 +26,12 @@ export enum Position {
 
 export type PositionData = { position: Position; amount: number };
 
-export function getPositionUILabel(position_code: string): string | null {
+export function getPositionUILabel(position_code: string): string {
 	const position_key = Object.entries(Position).find(([key, val]) => val === position_code)?.[0];
 	if (position_key === undefined) {
 		// TODO: Throw Error ?
 		console.error(`No position found for code: ${position_code}`);
-		return null;
+		return "";
 	}
 	return getPositionUILabelFromKey(position_key);
 }
