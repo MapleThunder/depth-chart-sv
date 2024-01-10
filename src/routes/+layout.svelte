@@ -12,7 +12,7 @@
 
 <header>
 	<div class="header-content">
-		<a class="home-link" href="/">Depth Chart</a>
+		<a id="home-link" href="/">Depth Chart</a>
 
 		<div class="header-controls">
 			<a href="/how-to-use" class="help-link">How to Use</a>
@@ -34,15 +34,18 @@
 <main><slot /></main>
 
 <footer>
-	<p>Created by Niko Bentley</p>
+	<div id="footer-content">
+		<a href="/how-to-use" class="help-link">How to Use the App</a>
+		<span>Created by Niko Bentley</span>
+	</div>
 </footer>
 
 <style>
 	header,
 	footer {
 		width: 100%;
-		height: 3rem;
-		min-height: 50px;
+		min-height: 3rem;
+		/* min-height: 50px; */
 		color: var(--text-light);
 		background-color: var(--primary);
 	}
@@ -84,7 +87,7 @@
 		border-bottom: 3px solid var(--accent);
 	}
 
-	a.home-link {
+	a#home-link {
 		font-size: 1.5rem;
 	}
 
@@ -107,10 +110,45 @@
 
 	footer {
 		display: flex;
-		justify-content: center;
-		align-items: center;
 		align-self: flex-end;
 		flex-shrink: 0;
 		margin-top: 1rem;
+		padding: 10px;
+	}
+
+	div#footer-content {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+	}
+
+	@media screen and (max-width: 700px) {
+		div.header-content {
+			padding: 0 5px;
+		}
+
+		a#home-link {
+			font-size: 0.9rem;
+			width: fit-content;
+		}
+
+		button#clear-btn {
+			padding: 0.2rem 0.6rem;
+			color: var(--text-light);
+			border-radius: var(--border-radius);
+		}
+
+		select {
+			padding: 0.4rem;
+			width: fit-content;
+		}
+
+		div.header-controls a.help-link {
+			display: none;
+		}
 	}
 </style>

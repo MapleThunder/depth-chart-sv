@@ -48,10 +48,13 @@
 
 <style>
 	.form-wrapper {
+		grid-area: "FORM";
 		height: fit-content;
 		padding: 15px;
 		background-color: var(--paper);
 		border-radius: 0 0 5px 5px;
+		border: var(--border);
+		border-top: transparent;
 	}
 
 	form {

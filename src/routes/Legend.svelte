@@ -7,8 +7,12 @@
 </script>
 
 <div id="legend">
-	<h2>Legend</h2>
+	<h2>Header Colours</h2>
 	<div id="colour-explanation">
+		<p>
+			The colour changes when you meet depth thresholds, this will change depending on the formation
+			chosen.
+		</p>
 		{#each levels as level}
 			<div class="row">
 				<div class="colour-box" style:background-color={`var(--${level.colour})`}></div>
@@ -23,6 +27,8 @@
 		background-color: var(--paper);
 		border-radius: var(--border-radius);
 		padding: 0 1rem 1rem 1rem;
+		border: var(--border);
+		grid-area: "FORM";
 	}
 
 	div#colour-explanation {
@@ -45,7 +51,16 @@
 		border: 1px solid var(--black);
 	}
 
+	h2 {
+		margin-bottom: 0.4rem;
+	}
 	p {
 		margin: 0;
+	}
+
+	@media screen and (max-width: 700px) {
+		div#legend {
+			grid-area: "LEGEND";
+		}
 	}
 </style>

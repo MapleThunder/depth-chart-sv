@@ -48,4 +48,17 @@
 			"LB CB RB"
 			".. GK ..";
 	}
+
+	@media screen and (max-width: 700px) {
+		div#content {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.position-boxes {
+			padding: 20px 0;
+			grid-gap: 2px;
+			margin-top: 10px;
+		}
+	}
 </style>

@@ -39,7 +39,7 @@ html {
 
 	--column: 80rem;
 	--side: 1rem;
-	--border: 1px solid var(--black);
+	--border: solid 1px var(--primary);
 	--debug-border: 1px dashed var(--red);
 	--border-radius: 7px;
 	--font-family: Nunito, Verdana, Geneva, Tahoma, sans-serif;

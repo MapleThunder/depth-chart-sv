@@ -148,4 +148,16 @@
 		display: flex;
 		align-items: center;
 	}
+
+	@media screen and (max-width: 700px) {
+		div.player-name-wrapper {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		div.row {
+			margin: 0 0 0 5px;
+		}
+	}
 </style>

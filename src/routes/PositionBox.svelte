@@ -39,7 +39,7 @@
 	<div class="position-header" style:background-color={getHeaderBackgroundStyle(filtered_players)}>
 		<div class="header-content">
 			<span>{getPositionUILabel(positionData?.position)}</span>
-			<div>
+			<div class="depth-ratio">
 				{filtered_players.length} / {positionData.amount * 2}
 			</div>
 		</div>
@@ -50,7 +50,7 @@
 </div>
 
 <style>
-	.position-box-wrapper {
+	div.position-box-wrapper {
 		border: var(--border);
 		border-radius: var(--border-radius);
 		background-color: var(--paper);
@@ -58,20 +58,39 @@
 		min-height: 150px;
 	}
 
-	.position-header {
+	div.position-header {
 		padding: 0.5rem;
 		border-bottom: var(--border);
 		border-radius: var(--border-radius) var(--border-radius) 0 0;
 	}
 
-	.header-content {
+	div.header-content {
 		display: flex;
 		justify-content: space-between;
+		gap: 5px;
 		align-items: center;
 	}
 
-	.player-list {
+	div.player-list {
 		width: 100%;
 		height: 100%;
+	}
+
+	@media screen and (max-width: 700px) {
+		div.position-box-wrapper {
+			max-width: 126px;
+			font-size: 0.9rem;
+		}
+
+		div.position-header span {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		div.depth-ratio {
+			font-size: 0.7rem;
+			min-width: fit-content;
+		}
 	}
 </style>
