@@ -10,6 +10,7 @@
 			value: pos.position,
 		}))
 		.sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
+	$: default_select_option = position_options[0].value;
 
 	let player_name = "";
 	let player_position: Position;
@@ -19,7 +20,7 @@
 		const new_player = { name: player_name, positions: [player_position] };
 
 		player_name = "";
-		player_position = Position.Striker;
+		player_position = default_select_option;
 		player_name_input.focus();
 		addPlayer(new_player);
 	}
