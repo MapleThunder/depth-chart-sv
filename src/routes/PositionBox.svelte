@@ -45,7 +45,7 @@
 		</div>
 	</div>
 	<div class="player-list">
-		<ReorderableList list={filtered_players} />
+		<ReorderableList list={filtered_players} position={positionData?.position} />
 	</div>
 </div>
 

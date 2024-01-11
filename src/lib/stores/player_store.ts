@@ -53,7 +53,18 @@ export function addPlayer(new_player: PlayerRecord) {
 }
 
 export function removePlayer(player: PlayerRecord) {
-	players.update((store_contents) => store_contents.filter((p) => p.name !== player.name));
+	const [existing_player] = get(players).filter((contents) => contents.name === player.name);
+	const store_without_player = get(players).filter((contents) => contents.name !== player.name);
+
+	if (existing_player.positions.length > 1) {
+		const new_positions = existing_player.positions.filter((p) => p !== player.positions[0]);
+		players.set([
+			...store_without_player,
+			{ name: existing_player.name, positions: new_positions },
+		]);
+	} else {
+		players.set(store_without_player);
+	}
 }
 
 export function resetPlayers() {

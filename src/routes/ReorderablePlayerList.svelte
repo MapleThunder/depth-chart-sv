@@ -5,8 +5,11 @@
 	 */
 	import Icon from "@iconify/svelte";
 	import { removePlayer, type PlayerRecord } from "$lib/stores/player_store";
+	import type { Position } from "$lib/positions";
 
 	export let list: PlayerRecord[];
+	export let position: Position;
+
 	let _el: HTMLElement;
 	let defaultBackgroundColour: string;
 
@@ -99,7 +102,7 @@
 				<button
 					id="remove-button"
 					name="remove-player-button"
-					on:click={() => removePlayer({ name: player.name, positions: [] })}
+					on:click={() => removePlayer({ name: player.name, positions: [position] })}
 				>
 					<Icon icon="material-symbols:close" />
 				</button>
