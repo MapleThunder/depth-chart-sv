@@ -3,9 +3,14 @@ import { browser } from "$app/environment";
 import type { Position } from "$lib/positions";
 import { onDestroy } from "svelte";
 
+export type PlayerPosition = {
+	position: Position;
+	weight: number;
+};
+
 export type PlayerRecord = {
 	name: string;
-	positions: Position[];
+	positions: PlayerPosition[];
 };
 
 const defaultValue: PlayerRecord[] = [];

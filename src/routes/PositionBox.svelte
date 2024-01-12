@@ -2,10 +2,11 @@
 	import ReorderableList from "./ReorderablePlayerList.svelte";
 	import { getPositionUILabel, type PositionData } from "$lib/positions";
 	import { players, type PlayerRecord } from "$lib/stores/player_store";
+	import PlayerList from "./PlayerList.svelte";
 
 	export let positionData: PositionData;
-	$: filtered_players = $players.filter((player) =>
-		player.positions.includes(positionData.position),
+	$: filtered_players = $players.filter(
+		(player) => player.positions.filter((p) => p.position === positionData.position).length > 0,
 	);
 
 	function getHeaderBackgroundStyle(list: PlayerRecord[]): string {
@@ -45,7 +46,8 @@
 		</div>
 	</div>
 	<div class="player-list">
-		<ReorderableList list={filtered_players} position={positionData?.position} />
+		<PlayerList list={filtered_players} position={positionData?.position} />
+		<!-- <ReorderableList list={filtered_players} position={positionData?.position} /> -->
 	</div>
 </div>
 
