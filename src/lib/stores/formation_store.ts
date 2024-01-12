@@ -21,7 +21,7 @@ export type FormationOption = {
 export function getFormationSelectOptions(): FormationOption[] {
 	const options = [];
 	for (const [key, value] of Object.entries(Formation)) {
-		options.push({ label: getPositionUILabelFromKey(key), value: value });
+		options.push({ label: value, value: value });
 	}
 	return options;
 }
