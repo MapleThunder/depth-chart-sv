@@ -46,8 +46,8 @@
 		</div>
 	</div>
 	<div class="player-list">
-		<PlayerList list={filtered_players} position={positionData?.position} />
-		<!-- <ReorderableList list={filtered_players} position={positionData?.position} /> -->
+		<!-- <PlayerList list={filtered_players} position={positionData?.position} /> -->
+		<ReorderableList list={filtered_players} position={positionData?.position} />
 	</div>
 </div>
 
