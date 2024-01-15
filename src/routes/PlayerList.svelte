@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type Position } from "$lib/positions";
-	import { players, removePlayer } from "$lib/stores/player_store";
+	import { players, removePlayer, updatePlayers } from "$lib/stores/player_store";
 	import { flip } from "svelte/animate";
 
 	export let position: Position;
@@ -77,7 +77,7 @@
 		filtered_players = [...filtered_players.slice(0, from), ...filtered_players.slice(from + 1)];
 		filtered_players = [...filtered_players.slice(0, to), temp, ...filtered_players.slice(to)];
 
-		const updated_weights = filtered_players.map((plyr, idx) => {
+		const updated_player_weights = filtered_players.map((plyr, idx) => {
 			const updated_plyr = {
 				name: plyr.name,
 				positions: plyr.positions.map((pos) => {
@@ -92,8 +92,7 @@
 			return updated_plyr;
 		});
 
-		// TODO: Update the state with the new order of players
-		// updatePlayers(players);
+		updatePlayers(updated_player_weights);
 	}
 
 	function release(ev: MouseEvent) {
@@ -275,6 +274,9 @@
 		width: 32px;
 	}
 
+	.content {
+	}
+
 	#grabbed {
 		opacity: 0;
 	}
@@ -295,5 +297,13 @@
 	#ghost.haunting {
 		z-index: 20;
 		opacity: 1;
+	}
+
+	@media screen and (max-width: 700px) {
+		div.content {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 	}
 </style>
