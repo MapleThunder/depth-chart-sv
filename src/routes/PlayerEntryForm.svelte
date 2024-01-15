@@ -17,7 +17,10 @@
 	let player_name_input: HTMLInputElement;
 
 	function handleAddPlayer() {
-		const new_player = { name: player_name, positions: [player_position] };
+		const new_player = {
+			name: player_name,
+			positions: [{ position: player_position, weight: 9 }],
+		};
 
 		player_name = "";
 		player_position = default_select_option;

@@ -25,7 +25,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@iconify/svelte": "^3.1.6",
-		"svelte-dnd-action": "^0.9.38"
+		"@iconify/svelte": "^3.1.6"
 	}
 }

@@ -1,13 +1,27 @@
 <script lang="ts">
 	import ReorderableList from "./ReorderablePlayerList.svelte";
 	import { getPositionUILabel, type PositionData } from "$lib/positions";
-	import { players, type PlayerRecord } from "$lib/stores/player_store";
 	import PlayerList from "./PlayerList.svelte";
+	import { players, type PlayerRecord } from "$lib/stores/player_store";
 
 	export let positionData: PositionData;
-	$: filtered_players = $players.filter(
-		(player) => player.positions.filter((p) => p.position === positionData.position).length > 0,
-	);
+
+	$: filtered_players = $players
+		.filter(
+			(plyr) => plyr.positions.filter((pos) => pos.position === positionData.position).length > 0,
+		)
+		.toSorted((a, b) => {
+			// Find the target position in player a
+			const positionA = a.positions.find((p) => p.position === positionData.position);
+			const weightA = positionA ? positionA.weight : Number.MAX_VALUE; // Fallback if position not found
+
+			// Find the target position in player b
+			const positionB = b.positions.find((p) => p.position === positionData.position);
+			const weightB = positionB ? positionB.weight : Number.MAX_VALUE; // Fallback if position not found
+
+			// Compare the weights
+			return weightA - weightB;
+		});
 
 	function getHeaderBackgroundStyle(list: PlayerRecord[]): string {
 		if (list.length >= positionData.amount * 2) {
@@ -46,8 +60,8 @@
 		</div>
 	</div>
 	<div class="player-list">
-		<!-- <PlayerList list={filtered_players} position={positionData?.position} /> -->
-		<ReorderableList list={filtered_players} position={positionData?.position} />
+		<!-- <ReorderableList list={players} position={positionData?.position} /> -->
+		<PlayerList position={positionData.position} removesItems={true} />
 	</div>
 </div>
 

@@ -8,9 +8,6 @@ dependencies:
   '@iconify/svelte':
     specifier: ^3.1.6
     version: 3.1.6(svelte@4.2.8)
-  svelte-dnd-action:
-    specifier: ^0.9.38
-    version: 0.9.38(svelte@4.2.8)
 
 devDependencies:
   '@sveltejs/adapter-auto':
@@ -1068,14 +1065,6 @@ packages:
       - stylus
       - sugarss
     dev: true
-
-  /svelte-dnd-action@0.9.38(svelte@4.2.8):
-    resolution: {integrity: sha512-L80YR+aknn54LmjPKFELYGDkZhed5ReBzH2xe61zFNGfQyoeXbFB1hs69QWgBIYufZPWUhAiVXIMhP7UQWs1dw==}
-    peerDependencies:
-      svelte: '>=3.23.0'
-    dependencies:
-      svelte: 4.2.8
-    dev: false
 
   /svelte-hmr@0.15.3(svelte@4.2.8):
     resolution: {integrity: sha512-41snaPswvSf8TJUhlkoJBekRrABDXDMdpNpT2tfHIv4JuhgvHqLMhEPGtaQn0BmbNSTkuz2Ed20DF2eHw0SmBQ==}
