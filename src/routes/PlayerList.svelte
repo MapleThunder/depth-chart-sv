@@ -24,7 +24,7 @@
 	let ghost: Element;
 	let grabbed: HTMLElement | null;
 
-	let lastTarget;
+	let lastTarget: any;
 
 	let mouseY = 0; // pointer y coordinate within client
 	let offsetY = 0; // y distance from top of grabbed element to pointer
@@ -113,8 +113,10 @@
 	>
 		<p></p>
 	</div>
-	<div
+	<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+	<section
 		class="list"
+		aria-label="Drag zone for the list of players in the {position} position"
 		on:mousemove={function (ev) {
 			ev.stopPropagation();
 			drag(ev.clientY);
@@ -133,6 +135,7 @@
 		}}
 	>
 		{#each filtered_players as player, i (player.name ? player.name : JSON.stringify(player))}
+			<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 			<div
 				role="listitem"
 				id={grabbed && (player.name ? player.name : JSON.stringify(player)) == grabbed.dataset.id
@@ -209,7 +212,7 @@
 				</div>
 			</div>
 		{/each}
-	</div>
+	</section>
 </main>
 
 <style>
@@ -229,15 +232,14 @@
 		display: inline-flex;
 		width: 100%;
 		min-height: 2em;
-		margin-bottom: 0.5em;
+		margin-bottom: 0.1em;
 		background-color: white;
-		/* border: 1px solid rgb(190, 190, 190); */
-		border-radius: var(--border-radius);
 		user-select: none;
 	}
 
 	.item:last-child {
 		margin-bottom: 0;
+		border-radius: 0 0 var(--border-radius) var(--border-radius);
 	}
 
 	.item:not(#grabbed):not(#ghost) {
@@ -272,9 +274,6 @@
 
 	.delete {
 		width: 32px;
-	}
-
-	.content {
 	}
 
 	#grabbed {
