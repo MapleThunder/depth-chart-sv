@@ -10,7 +10,7 @@ The [original web app](https://github.com/MapleThunder/depth-chart) was written 
 
 ## Formations & Positions
 
-There are boxes that signify different positions on the pitch (striker, winger, midfielder, etc) arranged depending on the formation chosen. The colour of the header bar for each position box changes as you add or remove players to the different positions. A player can be added to multiple positions and a player's positions can be easily edited from a modal.
+There are boxes that signify different positions on the pitch (striker, winger, midfielder, etc) arranged depending on the formation chosen. The colour of the header bar for each position box changes as you add or remove players to the different positions. A player can be added to multiple positions and when the "X" is clicked on a player they are only removed from that position
 
 The position box header colours have the following meanings:
 
