@@ -3,7 +3,6 @@
 	import { resetPlayers } from "$lib/stores/player_store";
 	import "../styles.css";
 
-	export const prerender = true;
 	const formationOptions = getFormationSelectOptions();
 </script>
 
