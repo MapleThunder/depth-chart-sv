@@ -49,6 +49,7 @@
 		min-width: 20px;
 		max-width: 20px;
 		border: 1px solid var(--black);
+		border-radius: 3px;
 	}
 
 	h2 {

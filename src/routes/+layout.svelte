@@ -45,7 +45,6 @@
 	footer {
 		width: 100%;
 		min-height: 3rem;
-		/* min-height: 50px; */
 		color: var(--text-light);
 		background-color: var(--primary);
 	}
@@ -92,7 +91,7 @@
 	}
 
 	button#clear-btn {
-		background-color: var(--error);
+		background-color: var(--red-dark);
 		border: 1px solid transparent;
 		padding: 0.4rem 1rem;
 		color: var(--text-light);
@@ -101,7 +100,9 @@
 
 	button#clear-btn:hover,
 	button#clear-btn:focus {
-		background-color: var(--red-dark);
+		background-color: var(--red-light);
+		color: var(--text-dark);
+		border: 1px solid var(--black);
 	}
 
 	main {

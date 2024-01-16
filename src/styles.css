@@ -14,8 +14,10 @@ body {
 html {
 	/* Colours */
 	--blue: hsl(208, 74%, 30%);
+	--blue-light: hsl(208, 74%, 80%);
 	--black: hsl(0, 2%, 12%);
 	--white: hsl(0, 2%, 89%);
+	--red-light: hsl(0, 100%, 70%);
 	--red: hsl(0, 100%, 50%);
 	--red-50: hsl(0, 100%, 50%, 0.5);
 	--red-dark: hsl(0, 100%, 40%);
@@ -36,6 +38,7 @@ html {
 	--depth-bad: var(--red-50);
 	--depth-okay: var(--yellow-50);
 	--depth-good: var(--green-50);
+	--button-hover-colour: var(--blue-light);
 
 	--column: 80rem;
 	--side: 1rem;
