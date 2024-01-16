@@ -10,7 +10,6 @@
 			value: pos.position,
 		}))
 		.sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
-	$: default_select_option = position_options[0].value;
 
 	let player_name = "";
 	let player_position: Position;
@@ -23,7 +22,6 @@
 		};
 
 		player_name = "";
-		player_position = default_select_option;
 		player_name_input.focus();
 		addPlayer(new_player);
 	}
@@ -85,7 +83,7 @@
 
 	button:hover,
 	button:focus {
-		background-color: var(--accent);
+		background-color: var(--button-hover-colour);
 		color: var(--text-dark);
 		border: 1px solid var(--black);
 	}

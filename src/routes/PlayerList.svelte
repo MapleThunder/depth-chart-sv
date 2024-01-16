@@ -1,4 +1,10 @@
 <script lang="ts">
+	/**
+	 * This file is based on the Svelte-DragDropList package.
+	 * I altered it to match my use case, added some types, and made slight style changes.
+	 *
+	 * https://github.com/jwlarocque/svelte-dragdroplist
+	 */
 	import { type Position } from "$lib/positions";
 	import { players, removePlayer, updatePlayers } from "$lib/stores/player_store";
 	import { flip } from "svelte/animate";
