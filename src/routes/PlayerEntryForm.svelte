@@ -38,6 +38,12 @@
 		</select>
 	</div>
 
+	<div class="button-wrapper">
+		<button id="clear-btn" type="button" on:click|preventDefault={() => resetPlayers()}>
+			Clear All Players
+		</button>
+	</div>
+
 	<hr />
 
 	<h2>Add a Player</h2>
@@ -56,12 +62,7 @@
 				<option value={option.value}>{option.label}</option>
 			{/each}
 		</select>
-		<div class="button-wrapper">
-			<button id="clear-btn" type="button" on:click|preventDefault={() => resetPlayers()}>
-				Clear Players
-			</button>
-			<button id="add-player" type="submit" name="add-player">Add Player</button>
-		</div>
+		<button id="add-player" type="submit" name="add-player">Add Player</button>
 	</form>
 </div>
 
@@ -93,8 +94,10 @@
 	}
 
 	.button-wrapper {
-		margin-top: 0.5rem;
-		align-self: flex-end;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		margin: 1.3rem 0;
 	}
 
 	.formation-selection {
@@ -129,7 +132,8 @@
 		background-color: var(--red-dark);
 		border: 1px solid transparent;
 		padding: 7px;
-		width: fit-content;
+		width: 80%;
+		align-self: center;
 		color: var(--text-light);
 		border-radius: var(--border-radius);
 	}

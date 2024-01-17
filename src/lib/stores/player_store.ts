@@ -75,7 +75,9 @@ export function removePlayer(plyr: PlayerRecord) {
 }
 
 export function resetPlayers() {
-	players.set(defaultValue);
+	if (confirm("Do you want to clear all the players ?")) {
+		players.set(defaultValue);
+	}
 }
 
 export function updatePlayers(players_to_update: PlayerRecord[]) {
