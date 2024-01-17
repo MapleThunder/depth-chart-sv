@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { formation, getFormationSelectOptions } from "$lib/stores/formation_store";
-	import { resetPlayers } from "$lib/stores/player_store";
 	import "../styles.css";
 
-	const formationOptions = getFormationSelectOptions();
+	const currentYear = new Date().getFullYear();
 </script>
 
 <svelte:head>
@@ -16,17 +14,6 @@
 
 		<div class="header-controls">
 			<a href="/how-to-use" class="help-link">How to Use</a>
-			<div class="formation-selection">
-				<select bind:value={$formation}>
-					{#each formationOptions as option}
-						<option value={option.value}>{option.label}</option>
-					{/each}
-				</select>
-			</div>
-
-			<div class="clear-btn-wrapper">
-				<button id="clear-btn" on:click={() => resetPlayers()}>Clear Players</button>
-			</div>
 		</div>
 	</div>
 </header>
@@ -35,8 +22,15 @@
 
 <footer>
 	<div id="footer-content">
-		<a href="/how-to-use" class="help-link">How to Use the App</a>
-		<span>Created by Niko Bentley</span>
+		<span>&copy; {currentYear} Niko Bentley</span>
+		<ul>
+			<li><a href="/how-to-use" class="help-link">How to Use the App</a></li>
+			<li>
+				<a href="https://github.com/MapleThunder/depth-chart-sv" class="help-link">
+					Source on Github
+				</a>
+			</li>
+		</ul>
 	</div>
 </footer>
 
@@ -90,21 +84,6 @@
 		font-size: 1.5rem;
 	}
 
-	button#clear-btn {
-		background-color: var(--red-dark);
-		border: 1px solid transparent;
-		padding: 0.4rem 1rem;
-		color: var(--text-light);
-		border-radius: var(--border-radius);
-	}
-
-	button#clear-btn:hover,
-	button#clear-btn:focus {
-		background-color: var(--red-light);
-		color: var(--text-dark);
-		border: 1px solid var(--black);
-	}
-
 	main {
 		flex-grow: 1;
 	}
@@ -117,14 +96,26 @@
 		padding: 10px;
 	}
 
-	div#footer-content {
+	#footer-content {
 		width: 100%;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+	}
+
+	#footer-content > ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
 		gap: 10px;
+		margin: 10px 0;
+		padding: 0;
+	}
+
+	#footer-content > ul li::before {
+		content: "+ ";
 	}
 
 	@media screen and (max-width: 700px) {

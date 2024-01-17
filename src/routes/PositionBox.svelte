@@ -1,5 +1,4 @@
 <script lang="ts">
-	import ReorderableList from "./ReorderablePlayerList.svelte";
 	import { getPositionUILabel, type PositionData } from "$lib/positions";
 	import PlayerList from "./PlayerList.svelte";
 	import { players, type PlayerRecord } from "$lib/stores/player_store";
@@ -60,7 +59,6 @@
 		</div>
 	</div>
 	<div class="player-list">
-		<!-- <ReorderableList list={players} position={positionData?.position} /> -->
 		<PlayerList position={positionData.position} removesItems={true} />
 	</div>
 </div>
