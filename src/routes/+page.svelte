@@ -4,10 +4,23 @@
 	import { getPositionsForFormation, Position, type PositionData } from "$lib/positions";
 	import PositionBox from "./PositionBox.svelte";
 	import Legend from "./Legend.svelte";
+	import { base_url, site_description, site_name, site_title } from "$lib/config";
 
 	let positions: PositionData[];
 	$: $formation, (positions = getPositionsForFormation($formation));
 </script>
+
+<svelte:head>
+	<title>Depth Chart</title>
+	<meta name="description" content={site_description} />
+
+	<meta property="og:site_name" content={site_name} />
+	<meta property="og:locale" content="en" />
+	<meta property="og:url" content={base_url} />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content={site_title} />
+	<meta property="og:description" content={site_description} />
+</svelte:head>
 
 <div id="content">
 	<div id="left-column">
