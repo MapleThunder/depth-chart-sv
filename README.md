@@ -4,9 +4,7 @@
 
 ## Description
 
-This project was created to help track the positional depth for a football (soccer) team. A couple years ago I was getting tired of trying to make a list of players for my local football team, sorted by the player's position, to fuel conversations about who the team should/shouldn't try to sign.
-
-The [original web app](https://github.com/MapleThunder/depth-chart) was written in React to help me learn the technology more. I wanted to revisit the application using Sveltekit for the same reason but with a different technology, this time I want to learn Sveltekit. I also wanted to use this an an opportunity to add some improvements that have been suggested to me by users.
+You can find a detailed narrative write up about this app [on my blog](https://nikobentley.ca/projects/depth-chart).
 
 ## Formations & Positions
 
