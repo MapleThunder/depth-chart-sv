@@ -4,6 +4,7 @@ import { browser } from "$app/environment";
 
 export enum Formation {
 	ThreeFourThree = "343",
+	ThreeFourOneTwo = "3412",
 	ThreeFiveOne = "351",
 	FourTwoThreeOne = "4231",
 	FourTwoFour = "424",
