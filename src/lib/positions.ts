@@ -54,7 +54,7 @@ export const BACK_FIVE = [
 	{ position: Position.RightWingback, amount: 1 },
 ];
 
-export const CENTRE_ATT_MID = [{ position: Position.CentreAttackingMid, amount: 1 }];
+export const CENTRE_ATT_MID = { position: Position.CentreAttackingMid, amount: 1 };
 export const MID_TWO = [{ position: Position.CentreMid, amount: 2 }];
 export const MID_THREE_FLAT = [{ position: Position.CentreMid, amount: 3 }];
 export const MID_THREE_ATT = [
@@ -90,7 +90,7 @@ export function getPositionsForFormation(formation: string): PositionData[] {
 		case Formation.ThreeFourThree:
 			return [...FRONT_THREE, ...MID_FOUR, ...BACK_THREE, KEEPER];
 		case Formation.ThreeFourOneTwo:
-			return [...FRONT_TWO, ...CENTRE_ATT_MID, ...MID_FOUR, ...BACK_THREE];
+			return [...FRONT_TWO, CENTRE_ATT_MID, ...MID_FOUR, ...BACK_THREE, KEEPER];
 		case Formation.ThreeFiveOne:
 			return [...FRONT_ONE, ...MID_FIVE, ...BACK_THREE, KEEPER];
 		case Formation.FourTwoThreeOne:
