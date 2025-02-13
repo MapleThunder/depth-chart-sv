@@ -13,7 +13,7 @@
 	export let removesItems = false;
 
 	$: filtered_players = $players
-		.filter((plyr) => plyr.positions.filter((pos) => pos.position === position).length > 0)
+		.filter((player) => player.positions.filter((pos) => pos.position === position).length > 0)
 		.toSorted((a, b) => {
 			// Find the target position in player a
 			const positionA = a.positions.find((p) => p.position === position);
@@ -171,6 +171,7 @@
 				<div class="buttons">
 					<button
 						class="up"
+						aria-label="Move {player.name} up"
 						style={"visibility: " + (i > 0 ? "" : "hidden") + ";"}
 						on:click={function (ev) {
 							moveDatum(i, i - 1);
@@ -184,6 +185,7 @@
 					</button>
 					<button
 						class="down"
+						aria-label="Move {player.name} down"
 						style={"visibility: " + (i < filtered_players.length - 1 ? "" : "hidden") + ";"}
 						on:click={function (ev) {
 							moveDatum(i, i + 1);
@@ -204,6 +206,7 @@
 				<div class="buttons delete">
 					{#if removesItems}
 						<button
+							aria-label="Remove {player.name} from the {position} position"
 							on:click={function (ev) {
 								removeDatum(i);
 							}}

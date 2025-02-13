@@ -60,15 +60,6 @@
 		gap: 1rem;
 		align-items: center;
 	}
-	.formation-selection {
-		display: flex;
-		align-items: center;
-	}
-
-	select {
-		padding: 0.4rem;
-		border-radius: var(--border-radius);
-	}
 
 	a {
 		color: var(--text-light);
@@ -125,17 +116,6 @@
 
 		a#home-link {
 			font-size: 0.9rem;
-			width: fit-content;
-		}
-
-		button#clear-btn {
-			padding: 0.2rem 0.6rem;
-			color: var(--text-light);
-			border-radius: var(--border-radius);
-		}
-
-		select {
-			padding: 0.4rem;
 			width: fit-content;
 		}
 
