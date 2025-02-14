@@ -1,7 +1,7 @@
 import { get, writable } from "svelte/store";
 import { browser } from "$app/environment";
 import type { Position } from "$lib/positions";
-import { onDestroy } from "svelte";
+// import { onDestroy } from "svelte";
 
 export type PlayerPosition = {
 	position: Position;
@@ -25,6 +25,9 @@ const unsubscribeLocalStorage = players.subscribe((value) => {
 });
 // onDestroy(unsubscribeLocalStorage);
 
+/**
+ * Checks local storage for existing data & returns it if found, otherwise returns the default value.
+ */
 function loadInitialValue(): PlayerRecord[] {
 	if (browser) {
 		const storedData = window.localStorage.getItem("player_store");
@@ -35,6 +38,9 @@ function loadInitialValue(): PlayerRecord[] {
 	return defaultValue;
 }
 
+/**
+ * Adds a player record to the store if it doesn't exist, otherwise updates the record with the new position.
+ */
 export function addPlayer(new_player: PlayerRecord) {
 	const store_contents = get(players);
 
@@ -57,14 +63,23 @@ export function addPlayer(new_player: PlayerRecord) {
 	}
 }
 
-export function removePlayer(plyr: PlayerRecord) {
-	const [existing_player] = get(players).filter((contents) => contents.name === plyr.name);
-	const store_without_player = get(players).filter((contents) => contents.name !== plyr.name);
+/**
+ * Removes positions from a player and eventually a player from the store entirely.
+ */
+export function removePlayer(player: PlayerRecord) {
+	const [existing_player] = get(players).filter((contents) => contents.name === player.name);
+	if (existing_player === undefined) {
+		// If no players are found just return.
+		return;
+	}
+	const store_without_player = get(players).filter((contents) => contents.name !== player.name);
 
-	if (existing_player.positions.length > 1) {
-		const new_positions = existing_player.positions.filter(
-			(p) => p.position !== plyr.positions[0].position,
-		);
+	// Filter the passed position(s) out of the player listing in the store
+	const new_positions = existing_player.positions.filter(
+		(p) => player.positions.includes(p),
+	);
+	// If there is at least 1 position left update the record, otherwise remove it.
+	if (new_positions.length > 0) {
 		players.set([
 			...store_without_player,
 			{ name: existing_player.name, positions: new_positions },
@@ -74,35 +89,38 @@ export function removePlayer(plyr: PlayerRecord) {
 	}
 }
 
+/**
+ * Resets the state to default (empty).
+ */
 export function resetPlayers() {
 	if (confirm("Do you want to clear all the players ?")) {
 		players.set(defaultValue);
 	}
 }
 
+/**
+ * Updates the given players in the store, used for updating position weights with drag-and-drop.
+ */
 export function updatePlayers(players_to_update: PlayerRecord[]) {
-	const store_contents = get(players);
-	const updated_players = store_contents.map((plyr) => {
-		const player_to_update = players_to_update.filter((p) => p.name === plyr.name);
-		const update_this_player = player_to_update.length > 0;
-
-		if (update_this_player) {
-			const position_update_data = player_to_update[0].positions[0];
-			return {
-				name: plyr.name,
-				positions: plyr.positions.map((pos) => {
-					if (pos.position === position_update_data.position) {
-						return { position: pos.position, weight: position_update_data.weight };
-					} else {
-						return pos;
-					}
-				}),
-			};
-		} else {
-			return plyr;
+	const updated_players = get(players).map((player) => {
+		const player_to_update = players_to_update.filter((p) => p.name === player.name);
+		// If the filter doesn't find anything, return the original record.
+		if (player_to_update.length === 0) {
+			return player;
 		}
+
+		const position_update_data = player_to_update[0].positions[0];
+		return {
+			name: player.name,
+			positions: player.positions.map((pos) => {
+				if (pos.position === position_update_data.position) {
+					return { position: pos.position, weight: position_update_data.weight };
+				} else {
+					return pos;
+				}
+			}),
+		};
 	});
 
-	console.log("player_store::updatePlayers", updated_players);
 	players.set(updated_players);
 }

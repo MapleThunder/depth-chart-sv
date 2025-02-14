@@ -26,17 +26,24 @@ export enum Position {
 
 export type PositionData = { position: Position; amount: number };
 
+/**
+ * Given a position code, returns the corresponding position label.
+ */
 export function getPositionUILabel(position_code: string): string {
-	const position_key = Object.entries(Position).find(([key, val]) => val === position_code)?.[0];
+	const position_key = Object.entries(Position)
+		.find(([_, val]) => val === position_code)?.[0];
 	if (position_key === undefined) {
-		// TODO: Throw Error ?
+
 		console.error(`No position found for code: ${position_code}`);
 		return "";
 	}
-	return getPositionUILabelFromKey(position_key);
+	return addSpaceToCamelCaseWords(position_key);
 }
 
-export function getPositionUILabelFromKey(position_key: string): string {
+/**
+ * Adds a space between words in a camel case string.
+ */
+export function addSpaceToCamelCaseWords(position_key: string): string {
 	return position_key.replace(/([a-z])([A-Z])/g, "$1 $2");
 }
 
@@ -85,6 +92,9 @@ export const FRONT_FOUR = [
 	{ position: Position.RightWing, amount: 1 },
 ];
 
+/**
+ * Returns an array of PositionData objects that represent the positions for the given formation string.
+ */
 export function getPositionsForFormation(formation: string): PositionData[] {
 	switch (formation) {
 		case Formation.ThreeFourThree:
