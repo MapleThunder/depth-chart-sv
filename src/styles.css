@@ -39,6 +39,8 @@ html {
 	--depth-okay: var(--yellow-50);
 	--depth-good: var(--green-50);
 	--button-hover-colour: var(--blue-light);
+	--export-button-bg: var(--blue);
+	--export-button-bg-hover: var(--blue-light);
 
 	--column: 80rem;
 	--side: 1rem;
@@ -56,4 +58,18 @@ body {
 	display: flex;
 	flex-direction: column;
 	font-family: var(--font-family);
+}
+
+button {
+	cursor: pointer;
+}
+
+hr {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.h2 {
+	font-size: 1.2em;
+	font-weight: bold;
 }

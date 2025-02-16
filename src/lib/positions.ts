@@ -120,3 +120,16 @@ export function getPositionsForFormation(formation: string): PositionData[] {
 			return [...FRONT_TWO, ...MID_FOUR, ...BACK_FOUR, KEEPER];
 	}
 }
+
+/**
+ * Returns a list of options for the position select
+ */
+export function getPositionSelectOptions(formation: string) {
+	const positions = getPositionsForFormation(formation);
+	return positions
+		.map((pos) => ({
+			label: getPositionUILabel(pos.position),
+			value: pos.position,
+		}))
+		.sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
+}
