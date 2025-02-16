@@ -7,7 +7,9 @@
 		if (!element) return;
 
 		try {
-			const canvas = await html2canvas(element);
+			const canvas = await html2canvas(element, {
+				backgroundColor: 'hsl(132, 96%, 31%)',
+			});
 			const dataURL = canvas.toDataURL('image/png'); // Or 'image/jpeg'
 
 			const link = document.createElement('a');

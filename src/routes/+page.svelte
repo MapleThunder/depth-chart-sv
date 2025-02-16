@@ -52,7 +52,7 @@
 	div#content {
 		display: grid;
 		grid-template-columns: 1fr 3fr;
-		gap: 20px;
+		gap: 0.5rem;
 		margin: 0 auto;
 		max-width: var(--column);
 	}
@@ -81,7 +81,7 @@
 	}
 
 	.position-boxes {
-		margin-top: 1rem;
+		padding: 1rem;
 		display: grid;
 		gap: 5px;
 		grid-template-areas:

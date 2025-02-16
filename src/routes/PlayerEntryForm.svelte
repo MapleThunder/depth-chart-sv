@@ -10,8 +10,6 @@
 	let player_position: Position;
 	let player_name_input: HTMLInputElement;
 	
-	$: player_position = position_options[0].value;
-
 	/**
 	 * Adds a new player + position combo to the Player Store
 	 */
