@@ -1,4 +1,4 @@
-import { getPositionUILabelFromKey } from "$lib/positions";
+import { addSpaceToCamelCaseWords } from "$lib/positions";
 import { writable } from "svelte/store";
 import { browser } from "$app/environment";
 

@@ -5,6 +5,9 @@
 	import PositionBox from "./PositionBox.svelte";
 	import Legend from "./Legend.svelte";
 	import { base_url, site_description, site_name, site_title } from "$lib/config";
+	import FormationSelect from "./FormationSelect.svelte";
+	import SharePictureButton from "./SharePictureButton.svelte";
+	import ClearAllButton from "./ClearAllButton.svelte";
 
 	let positions: PositionData[];
 	$: $formation, (positions = getPositionsForFormation($formation));
@@ -24,11 +27,21 @@
 
 <div id="content">
 	<div id="left-column">
-		<PlayerEntryForm />
+		<div class="form-wrapper">
+			<FormationSelect />
+			<PlayerEntryForm />
+	
+			<hr />
+	
+			<div class="button-wrapper">
+				<SharePictureButton />
+				<ClearAllButton />
+			</div>
+		</div>
 		<Legend />
 	</div>
 
-	<div class="position-boxes">
+	<div id="position-boxes" class="position-boxes">
 		{#each positions as positionData}
 			<PositionBox {positionData} />
 		{/each}
@@ -39,7 +52,7 @@
 	div#content {
 		display: grid;
 		grid-template-columns: 1fr 3fr;
-		gap: 20px;
+		gap: 0.5rem;
 		margin: 0 auto;
 		max-width: var(--column);
 	}
@@ -50,8 +63,25 @@
 		gap: 1rem;
 	}
 
+	div.form-wrapper {
+		grid-area: "FORM";
+		height: fit-content;
+		padding: 15px;
+		background-color: var(--paper);
+		border-radius: 0 0 5px 5px;
+		border: var(--border);
+		border-top: transparent;
+	}
+
+	.button-wrapper {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
 	.position-boxes {
-		margin-top: 1rem;
+		padding: 1rem;
 		display: grid;
 		gap: 5px;
 		grid-template-areas:
