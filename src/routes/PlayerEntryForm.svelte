@@ -54,35 +54,45 @@
 
 <style>
 	h2 {
-		margin-bottom: 0.5rem;
+		margin-bottom: 0.6rem;
+		font-size: 1.25rem;
+		letter-spacing: 0.1px;
 	}
 
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: 5px;
+		gap: 0.5rem;
+	}
+
+	label {
+		font-size: 0.9rem;
+		color: hsl(210, 15%, 30%);
+		font-weight: 600;
 	}
 
 	select,
 	input {
-		padding: 0.4rem;
-		border-radius: var(--border-radius);
+		padding: 0.55rem 0.7rem;
+		border-radius: 10px;
+		border: 1px solid var(--panel-border);
 	}
 	
 	button {
 		background-color: var(--primary);
 		color: var(--text-light);
-		padding: 7px;
+		padding: 0.5rem 0.9rem;
 		width: fit-content;
-		border-radius: var(--border-radius);
+		border-radius: 999px;
 		align-self: flex-end;
 		border: 1px solid transparent;
+		font-weight: 600;
 	}
 
 	button:hover,
 	button:focus {
 		background-color: var(--button-hover-colour);
 		color: var(--text-dark);
-		border: 1px solid var(--black);
+		border: 1px solid var(--panel-border);
 	}
 </style>

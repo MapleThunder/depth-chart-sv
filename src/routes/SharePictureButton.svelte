@@ -29,15 +29,17 @@
 <style>
   	button#export {
 		border: 1px solid transparent;
-		padding: 7px;
-		width: 80%;
+		padding: 0.6rem 0.9rem;
+		width: 100%;
 		align-self: center;
 		color: var(--text-light);
-		border-radius: var(--border-radius);
+		border-radius: 999px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		gap: 1rem;
+		gap: 0.6rem;
+		font-weight: 600;
+		box-shadow: 0 6px 16px rgba(10, 14, 22, 0.18);
 	}
 
 	button#export {

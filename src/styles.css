@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
 
 * {
 	position: relative;
@@ -13,43 +13,54 @@ body {
 
 html {
 	/* Colours */
-	--blue: hsl(208, 74%, 30%);
-	--blue-light: hsl(208, 74%, 80%);
-	--black: hsl(0, 2%, 12%);
-	--white: hsl(0, 2%, 89%);
-	--red-light: hsl(0, 100%, 70%);
-	--red: hsl(0, 100%, 50%);
-	--red-50: hsl(0, 100%, 50%, 0.5);
-	--red-dark: hsl(0, 100%, 40%);
-	--paper: hsl(0, 2%, 89%);
-	--yellow: hsl(54, 87%, 62%);
-	--yellow-50: hsl(54, 87%, 62%, 0.5);
-	--green: hsl(120, 100%, 25%);
-	--green-50: hsl(120, 100%, 25%, 0.5);
+	--blue: hsl(213, 66%, 32%);
+	--blue-light: hsl(213, 70%, 74%);
+	--black: hsl(210, 24%, 10%);
+	--white: hsl(0, 0%, 98%);
+	--red-light: hsl(6, 88%, 64%);
+	--red: hsl(6, 86%, 50%);
+	--red-50: hsl(6, 86%, 50%, 0.38);
+	--red-dark: hsl(6, 78%, 42%);
+	--paper: hsl(0, 0%, 98%);
+	--yellow: hsl(46, 100%, 56%);
+	--yellow-50: hsl(46, 100%, 56%, 0.38);
+	--green: hsl(138, 68%, 30%);
+	--green-50: hsl(138, 68%, 30%, 0.35);
+	--panel-border: hsl(210, 20%, 76%);
+	--panel-shadow: 0 12px 30px rgba(7, 14, 24, 0.24);
+	--panel-shadow-soft: 0 8px 22px rgba(7, 14, 24, 0.2);
 
 	/* Uses */
-	--accent: var(--yellow);
+	--accent: hsl(46, 100%, 54%);
 	--primary: var(--blue);
-	--drag-highlight: var(--yellow-50);
+	--drag-highlight: hsl(46, 100%, 88%);
 	--text-light: var(--white);
 	--text-dark: var(--black);
 	--error: var(--red);
-	--link-highlight: var(--yellow-50);
+	--link-highlight: hsl(46, 100%, 54%, 0.4);
 	--depth-bad: var(--red-50);
 	--depth-okay: var(--yellow-50);
 	--depth-good: var(--green-50);
-	--button-hover-colour: var(--blue-light);
-	--export-button-bg: var(--blue);
-	--export-button-bg-hover: var(--blue-light);
+	--button-hover-colour: hsl(213, 65%, 84%);
+	--export-button-bg: hsl(213, 70%, 34%);
+	--export-button-bg-hover: hsl(213, 72%, 42%);
+	--danger-button-bg: hsl(6, 82%, 46%);
+	--danger-button-bg-hover: hsl(6, 86%, 54%);
 
 	--column: 80rem;
 	--side: 1rem;
-	--border: solid 1px var(--primary);
+	--border: solid 1px var(--panel-border);
 	--debug-border: 1px dashed var(--red);
-	--border-radius: 7px;
-	--font-family: Nunito, Verdana, Geneva, Tahoma, sans-serif;
+	--border-radius: 12px;
+	--font-family: Manrope, "Segoe UI", sans-serif;
 
-	background: radial-gradient(circle at 50% 0%, hsl(132, 96%, 31%), hsl(132, 96%, 25%));
+	background: radial-gradient(circle at 20% -10%, hsl(139, 78%, 36%), hsl(139, 76%, 24%));
+	background-image: radial-gradient(
+			circle at 20% -10%,
+			hsl(139, 78%, 36%),
+			hsl(139, 76%, 24%)
+		),
+		linear-gradient(160deg, hsl(139, 70%, 26%) 0%, hsl(139, 74%, 20%) 100%);
 	background-attachment: fixed;
 	background-size: 100vw 100vh;
 }
@@ -58,10 +69,34 @@ body {
 	display: flex;
 	flex-direction: column;
 	font-family: var(--font-family);
+	color: var(--text-dark);
+	letter-spacing: 0.1px;
+	line-height: 1.35;
 }
 
 button {
 	cursor: pointer;
+}
+
+input,
+select,
+button {
+	font-family: inherit;
+}
+
+input,
+select {
+	border: 1px solid var(--panel-border);
+	background-color: var(--white);
+	color: var(--text-dark);
+	box-shadow: 0 1px 0 rgba(17, 24, 39, 0.04);
+}
+
+input:focus,
+select:focus,
+button:focus {
+	outline: 2px solid hsl(210, 30%, 80%);
+	outline-offset: 2px;
 }
 
 hr {

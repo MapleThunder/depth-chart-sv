@@ -19,11 +19,19 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		gap: 0.8rem;
 	}
 
 	.formation-selection label {
-		font-size: 1.2rem;
-		font-weight: bold;
+		font-size: 1rem;
+		font-weight: 600;
+	}
+
+	.formation-selection select {
+		padding: 0.45rem 0.7rem;
+		border-radius: 10px;
+		border: 1px solid var(--panel-border);
+		background-color: var(--white);
 	}
 
 </style>

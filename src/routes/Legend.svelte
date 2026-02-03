@@ -26,15 +26,16 @@
 	div#legend {
 		background-color: var(--paper);
 		border-radius: var(--border-radius);
-		padding: 0 1rem 1rem 1rem;
+		padding: 0.8rem 1rem 1rem;
 		border: var(--border);
 		grid-area: "FORM";
+		box-shadow: var(--panel-shadow-soft);
 	}
 
 	div#colour-explanation {
 		display: flex;
 		flex-direction: column;
-		gap: 15px;
+		gap: 0.8rem;
 	}
 
 	div.row {
@@ -48,12 +49,13 @@
 		max-height: 20px;
 		min-width: 20px;
 		max-width: 20px;
-		border: 1px solid var(--black);
+		border: 1px solid var(--panel-border);
 		border-radius: 3px;
 	}
 
 	h2 {
 		margin-bottom: 0.4rem;
+		font-size: 1.1rem;
 	}
 	p {
 		margin: 0;

@@ -240,15 +240,17 @@
 		box-sizing: border-box;
 		display: inline-flex;
 		width: 100%;
-		min-height: 2em;
-		margin-bottom: 0.1em;
-		background-color: white;
+		min-height: 2.1em;
+		margin-bottom: 0.2em;
+		background-color: var(--white);
+		border: 1px solid var(--panel-border);
+		border-radius: 10px;
+		padding: 0.15rem 0.25rem;
 		user-select: none;
 	}
 
 	.item:last-child {
 		margin-bottom: 0;
-		border-radius: 0 0 var(--border-radius) var(--border-radius);
 	}
 
 	.item:not(#grabbed):not(#ghost) {
@@ -278,7 +280,7 @@
 	}
 
 	.buttons button:focus {
-		border: 1px solid black;
+		border: 1px solid var(--panel-border);
 	}
 
 	.delete {

@@ -51,39 +51,40 @@
 <style>
 	div#content {
 		display: grid;
-		grid-template-columns: 1fr 3fr;
-		gap: 0.5rem;
+		grid-template-columns: minmax(280px, 360px) 1fr;
+		gap: 1.2rem;
 		margin: 0 auto;
 		max-width: var(--column);
+		padding: 1.2rem var(--side);
 	}
 
 	div#left-column {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 1.2rem;
 	}
 
 	div.form-wrapper {
 		grid-area: "FORM";
 		height: fit-content;
-		padding: 15px;
+		padding: 1.2rem;
 		background-color: var(--paper);
-		border-radius: 0 0 5px 5px;
+		border-radius: var(--border-radius);
 		border: var(--border);
-		border-top: transparent;
+		box-shadow: var(--panel-shadow-soft);
 	}
 
 	.button-wrapper {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.7rem;
 	}
 
 	.position-boxes {
-		padding: 1rem;
+		padding: 0.5rem 0.3rem 1rem;
 		display: grid;
-		gap: 5px;
+		gap: 12px;
 		grid-template-areas:
 			".. ST .."
 			"LW CAM RW"
@@ -96,11 +97,12 @@
 		div#content {
 			display: flex;
 			flex-direction: column;
+			padding: 0.7rem var(--side);
 		}
 
 		.position-boxes {
-			padding: 20px 0;
-			grid-gap: 2px;
+			padding: 16px 0;
+			grid-gap: 10px;
 			margin-top: 10px;
 		}
 	}

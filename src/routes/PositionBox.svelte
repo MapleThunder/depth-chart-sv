@@ -70,12 +70,14 @@
 		background-color: var(--paper);
 		width: 300px;
 		min-height: 150px;
+		box-shadow: var(--panel-shadow-soft);
 	}
 
 	div.position-header {
-		padding: 0.5rem;
+		padding: 0.55rem 0.7rem;
 		border-bottom: var(--border);
 		border-radius: var(--border-radius) var(--border-radius) 0 0;
+		font-weight: 600;
 	}
 
 	div.header-content {
@@ -83,6 +85,7 @@
 		justify-content: space-between;
 		gap: 5px;
 		align-items: center;
+		font-size: 0.95rem;
 	}
 
 	div.player-list {
@@ -92,8 +95,8 @@
 
 	@media screen and (max-width: 700px) {
 		div.position-box-wrapper {
-			max-width: 126px;
-			font-size: 0.9rem;
+			max-width: 132px;
+			font-size: 0.85rem;
 		}
 
 		div.position-header span {
