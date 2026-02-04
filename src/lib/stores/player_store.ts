@@ -7,7 +7,7 @@ export type PlayerPosition = {
 	position: Position;
 	weight: number;
 	role?: "primary" | "secondary";
-	skill?: "low" | "mid" | "high";
+	skill?: "low" | "mid" | "high" | "medium";
 };
 
 export type PlayerRecord = {

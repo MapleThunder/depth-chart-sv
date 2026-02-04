@@ -8,12 +8,20 @@
 	import { type Position } from "$lib/positions";
 	import { getAllPositionSelectOptions, getPositionSelectOptions } from "$lib/positions";
 	import { formation } from "$lib/stores/formation_store";
-	import { players, removePlayer, updatePlayer, updatePlayers } from "$lib/stores/player_store";
+	import {
+		type PlayerPosition,
+		players,
+		removePlayer,
+		updatePlayer,
+		updatePlayers,
+	} from "$lib/stores/player_store";
 	import { flip } from "svelte/animate";
 
 	export let position: Position;
 	export let removesItems = false;
 	export let show_secondary_positions = false;
+
+	type SkillLevel = "low" | "mid" | "high";
 
 	$: filtered_players = $players
 		.filter((player) => {
@@ -37,8 +45,8 @@
 			return weightA - weightB;
 		});
 
-	let ghost: Element;
-	let grabbed: HTMLElement | null;
+	let ghost: HTMLElement;
+	let grabbed: HTMLElement | null = null;
 
 	let lastTarget: any;
 
@@ -46,7 +54,7 @@
 	let editing_player_name = "";
 	let edit_primary_position: Position | undefined;
 	let edit_secondary_positions: Position[] = [];
-	let edit_secondary_skills: Record<Position, "low" | "mid" | "high"> = {};
+	let edit_secondary_skills: Partial<Record<Position, SkillLevel>> = {};
 
 	$: position_options = getPositionSelectOptions($formation);
 	$: all_position_options = getAllPositionSelectOptions();
@@ -61,7 +69,7 @@
 	function grab(clientY: number, element: HTMLElement) {
 		// modify grabbed element
 		grabbed = element;
-		grabbed.dataset.grabY = clientY;
+		grabbed.dataset.grabY = String(clientY);
 
 		// modify ghost element (which is actually dragged)
 		ghost.innerHTML = grabbed.innerHTML;
@@ -76,26 +84,32 @@
 	function drag(clientY: number) {
 		if (grabbed) {
 			mouseY = clientY;
-			layerY = ghost.parentNode?.getBoundingClientRect().y;
+			const parent = ghost.parentElement;
+			layerY = parent ? parent.getBoundingClientRect().y : 0;
 		}
 	}
 
 	// touchEnter handler emulates the mouseenter event for touch input
 	// (more or less)
-	function touchEnter(ev: MouseEvent) {
-		drag(ev.clientY);
+	function touchEnter(touch: Touch) {
+		drag(touch.clientY);
 		// trigger dragEnter the first time the cursor moves over a list item
-		let target = document.elementFromPoint(ev.clientX, ev.clientY).closest(".item");
+		const hit = document.elementFromPoint(touch.clientX, touch.clientY);
+		const target = hit ? (hit.closest(".item") as HTMLElement | null) : null;
 		if (target && target != lastTarget) {
 			lastTarget = target;
-			dragEnter(ev, target);
+			dragEnter(target);
 		}
 	}
 
-	function dragEnter(ev: MouseEvent, target: Element) {
+	function dragEnter(target: HTMLElement) {
 		// swap items in data
 		if (grabbed && target != grabbed && target.classList.contains("item")) {
-			moveDatum(parseInt(grabbed.dataset.index), parseInt(target.dataset.index));
+			const from = Number(grabbed.dataset.index);
+			const to = Number(target.dataset.index);
+			if (Number.isFinite(from) && Number.isFinite(to)) {
+				moveDatum(from, to);
+			}
 		}
 	}
 
@@ -123,7 +137,7 @@
 		updatePlayers(updated_player_weights);
 	}
 
-	function release(ev: MouseEvent) {
+	function release() {
 		grabbed = null;
 	}
 
@@ -148,11 +162,12 @@
 		edit_secondary_skills = existing_player.positions.reduce(
 			(acc, pos) => {
 				if (pos.position !== primary_position?.position) {
-					acc[pos.position] = pos.skill ?? "mid";
+					const skill = pos.skill === "medium" ? "mid" : pos.skill ?? "mid";
+					acc[pos.position] = skill;
 				}
 				return acc;
 			},
-			{} as Record<Position, "low" | "mid" | "high">,
+			{} as Partial<Record<Position, SkillLevel>>,
 		);
 		show_edit_modal = true;
 	}
@@ -177,7 +192,7 @@
 		];
 		const unique_positions = Array.from(new Set(positions_to_set));
 
-		const updated_positions = unique_positions.map((pos) => {
+		const updated_positions: PlayerPosition[] = unique_positions.map((pos) => {
 			const existing_position = existing_player.positions.find(
 				(existing) => existing.position === pos,
 			);
@@ -187,8 +202,11 @@
 				role: pos === edit_primary_position ? "primary" : "secondary",
 				skill:
 					pos === edit_primary_position
-						? existing_position?.skill ?? "mid"
-						: edit_secondary_skills[pos] ?? existing_position?.skill ?? "mid",
+						? (existing_position?.skill === "medium" ? "mid" : existing_position?.skill ?? "mid")
+						: edit_secondary_skills[pos] ??
+							(existing_position?.skill === "medium"
+								? "mid"
+								: existing_position?.skill ?? "mid"),
 			};
 		});
 
@@ -257,14 +275,14 @@
 		);
 	}
 
-	function setSecondarySkill(pos: Position, skill: "low" | "mid" | "high"): void {
+	function setSecondarySkill(pos: Position, skill: SkillLevel): void {
 		edit_secondary_skills = {
 			...edit_secondary_skills,
 			[pos]: skill,
 		};
 	}
 
-	function getSkillColor(skill: "low" | "mid" | "high"): string {
+	function getSkillColor(skill: SkillLevel): string {
 		if (skill === "low") return "hsl(8, 78%, 56%)";
 		if (skill === "high") return "hsl(120, 52%, 45%)";
 		return "hsl(46, 92%, 54%)";
@@ -294,11 +312,11 @@
 		}}
 		on:mouseup={function (ev) {
 			ev.stopPropagation();
-			release(ev);
+			release();
 		}}
 		on:touchend={function (ev) {
 			ev.stopPropagation();
-			release(ev.touches[0]);
+			release();
 		}}
 	>
 		{#each filtered_players as player, i (player.name ? player.name : JSON.stringify(player))}
@@ -313,14 +331,14 @@
 				data-id={player.name ? player.name : JSON.stringify(player)}
 				data-grabY="0"
 				on:mousedown={function (ev) {
-					grab(ev.clientY, this);
+					grab(ev.clientY, ev.currentTarget as HTMLElement);
 				}}
 				on:touchstart={function (ev) {
-					grab(ev.touches[0].clientY, this);
+					grab(ev.touches[0].clientY, ev.currentTarget as HTMLElement);
 				}}
 				on:mouseenter={function (ev) {
 					ev.stopPropagation();
-					dragEnter(ev, ev.target);
+					dragEnter(ev.currentTarget as HTMLElement);
 				}}
 				on:touchmove={function (ev) {
 					ev.stopPropagation();
@@ -400,8 +418,27 @@
 </main>
 
 {#if show_edit_modal}
-	<div class="modal-backdrop" on:click={closeEditModal}>
-		<div class="modal" role="dialog" aria-modal="true" on:click|stopPropagation>
+	<div
+		class="modal-backdrop"
+		role="button"
+		tabindex="0"
+		aria-label="Close edit modal"
+		on:click={closeEditModal}
+		on:keydown={(ev) => {
+			if (ev.key === "Escape" || ev.key === "Enter" || ev.key === " ") {
+				ev.preventDefault();
+				closeEditModal();
+			}
+		}}
+	>
+		<div
+			class="modal"
+			role="dialog"
+			aria-modal="true"
+			tabindex="-1"
+			on:click|stopPropagation
+			on:keydown|stopPropagation={() => {}}
+		>
 			<header class="modal-header">
 				<h3>Edit {editing_player_name}</h3>
 				<button class="modal-close" aria-label="Close" on:click={closeEditModal}>×</button>
@@ -420,7 +457,7 @@
 				</select>
 
 				<div class="secondary-header">
-					<label>Secondary Position(s)</label>
+					<span class="secondary-title">Secondary Position(s)</span>
 					<button
 						type="button"
 						class="secondary-add"
