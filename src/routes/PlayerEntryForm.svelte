@@ -4,7 +4,7 @@
 	import { addPlayer } from "$lib/stores/player_store";
 
 	$: position_options = getPositionSelectOptions($formation);
-	
+
 	// Form values
 	let player_name = "";
 	let player_position: Position;
@@ -31,7 +31,6 @@
 		}
 		player_name_input.focus();
 	}
-
 </script>
 
 <h2>Add a Player</h2>

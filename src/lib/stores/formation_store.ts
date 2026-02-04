@@ -29,7 +29,7 @@ export function getFormationSelectOptions(): FormationOption[] {
 
 const defaultValue = Formation.FourFourTwo;
 const initialValue = browser
-	? window.localStorage.getItem("formation_store") ?? defaultValue
+	? (window.localStorage.getItem("formation_store") ?? defaultValue)
 	: defaultValue;
 
 export const formation = writable(initialValue);
