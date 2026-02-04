@@ -9,7 +9,7 @@
 	let player_name = "";
 	let player_position: Position;
 	let player_name_input: HTMLInputElement;
-	
+
 	/**
 	 * Adds a new player + position combo to the Player Store
 	 */
@@ -31,6 +31,7 @@
 		}
 		player_name_input.focus();
 	}
+
 </script>
 
 <h2>Add a Player</h2>
@@ -77,7 +78,7 @@
 		border-radius: 10px;
 		border: 1px solid var(--panel-border);
 	}
-	
+
 	button {
 		background-color: var(--primary);
 		color: var(--text-light);

@@ -11,6 +11,7 @@
 
 	let positions: PositionData[];
 	$: $formation, (positions = getPositionsForFormation($formation));
+	let show_secondary_positions = false;
 </script>
 
 <svelte:head>
@@ -30,6 +31,14 @@
 		<div class="form-wrapper">
 			<FormationSelect />
 			<PlayerEntryForm />
+
+			<div class="secondary-visibility">
+				<label class="switch">
+					<input type="checkbox" bind:checked={show_secondary_positions} />
+					<span class="slider" aria-hidden="true"></span>
+				</label>
+				<span>Show secondary positions</span>
+			</div>
 	
 			<hr />
 	
@@ -43,7 +52,7 @@
 
 	<div id="position-boxes" class="position-boxes">
 		{#each positions as positionData}
-			<PositionBox {positionData} />
+			<PositionBox {positionData} {show_secondary_positions} />
 		{/each}
 	</div>
 </div>
@@ -72,6 +81,61 @@
 		border-radius: var(--border-radius);
 		border: var(--border);
 		box-shadow: var(--panel-shadow-soft);
+	}
+
+	.secondary-visibility {
+		margin-top: 0.7rem;
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		font-size: 0.9rem;
+		color: hsl(210, 15%, 30%);
+		font-weight: 600;
+	}
+
+	.switch {
+		position: relative;
+		display: inline-flex;
+		width: 42px;
+		height: 24px;
+	}
+
+	.switch input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	.slider {
+		position: absolute;
+		cursor: pointer;
+		inset: 0;
+		background-color: hsl(210, 20%, 90%);
+		border-radius: 999px;
+		transition: background-color 0.2s ease;
+		border: 1px solid var(--panel-border);
+	}
+
+	.slider::before {
+		content: "";
+		position: absolute;
+		height: 18px;
+		width: 18px;
+		left: 3px;
+		top: 50%;
+		transform: translateY(-50%);
+		background-color: var(--white);
+		border-radius: 50%;
+		transition: transform 0.2s ease;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+	}
+
+	.switch input:checked + .slider {
+		background-color: var(--primary);
+	}
+
+	.switch input:checked + .slider::before {
+		transform: translate(18px, -50%);
 	}
 
 	.button-wrapper {

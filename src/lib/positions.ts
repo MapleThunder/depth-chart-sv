@@ -25,6 +25,7 @@ export enum Position {
 }
 
 export type PositionData = { position: Position; amount: number };
+export type PositionOption = { label: string; value: Position };
 
 /**
  * Given a position code, returns the corresponding position label.
@@ -130,6 +131,18 @@ export function getPositionSelectOptions(formation: string) {
 		.map((pos) => ({
 			label: getPositionUILabel(pos.position),
 			value: pos.position,
+		}))
+		.sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
+}
+
+/**
+ * Returns a list of options for all positions.
+ */
+export function getAllPositionSelectOptions(): PositionOption[] {
+	return Object.values(Position)
+		.map((position) => ({
+			label: getPositionUILabel(position),
+			value: position,
 		}))
 		.sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
 }

@@ -6,6 +6,8 @@ import type { Position } from "$lib/positions";
 export type PlayerPosition = {
 	position: Position;
 	weight: number;
+	role?: "primary" | "secondary";
+	skill?: "low" | "mid" | "high";
 };
 
 export type PlayerRecord = {
@@ -32,10 +34,47 @@ function loadInitialValue(): PlayerRecord[] {
 	if (browser) {
 		const storedData = window.localStorage.getItem("player_store");
 		if (storedData) {
-			return JSON.parse(storedData);
+			const parsed = JSON.parse(storedData) as PlayerRecord[];
+			return parsed.map((record) => normalizePlayerRecord(record));
 		}
 	}
 	return defaultValue;
+}
+
+function normalizePositions(positions: PlayerPosition[]): PlayerPosition[] {
+	if (positions.length === 0) {
+		return positions;
+	}
+
+	const normalized = positions.map((pos) => ({
+		...pos,
+		role: pos.role ?? "secondary",
+		skill:
+			pos.skill === "medium"
+				? "mid"
+				: pos.skill ?? "mid",
+	}));
+
+	let primary_index = normalized.findIndex((pos) => pos.role === "primary");
+	if (primary_index === -1) {
+		primary_index = 0;
+		normalized[0].role = "primary";
+	}
+
+	normalized.forEach((pos, index) => {
+		if (pos.role === "primary" && index !== primary_index) {
+			pos.role = "secondary";
+		}
+	});
+
+	return normalized;
+}
+
+function normalizePlayerRecord(record: PlayerRecord): PlayerRecord {
+	return {
+		...record,
+		positions: normalizePositions(record.positions),
+	};
 }
 
 /**
@@ -43,24 +82,55 @@ function loadInitialValue(): PlayerRecord[] {
  */
 export function addPlayer(new_player: PlayerRecord) {
 	const store_contents = get(players);
+	const normalized_new_player = normalizePlayerRecord(new_player);
 
 	// Check to see if the player exists in the store
 	const existing_record = store_contents.find(
-		(player_record) => player_record.name === new_player.name,
+		(player_record) => player_record.name === normalized_new_player.name,
 	);
 
 	if (existing_record) {
 		// Update the positions if it exists
-		const combined_positions = [...existing_record.positions, ...new_player.positions];
-		const new_record = { name: new_player.name, positions: combined_positions };
+		const combined_positions = [
+			...existing_record.positions,
+			...normalized_new_player.positions,
+		].reduce((unique: PlayerPosition[], pos) => {
+			if (unique.some((existing) => existing.position === pos.position)) {
+				return unique;
+			}
+			return [...unique, pos];
+		}, []);
+
+		const new_record = normalizePlayerRecord({
+			name: normalized_new_player.name,
+			positions: combined_positions,
+		});
 		players.set([
-			...store_contents.filter((record) => record.name !== new_player.name),
+			...store_contents.filter((record) => record.name !== normalized_new_player.name),
 			new_record,
 		]);
 	} else {
 		// Add the player if it doesn't exist
-		players.update((store_contents) => [...store_contents, new_player]);
+		players.update((store_contents) => [...store_contents, normalized_new_player]);
 	}
+}
+
+/**
+ * Replaces an existing player record with the new data.
+ */
+export function updatePlayer(updated_player: PlayerRecord) {
+	const store_contents = get(players);
+	const normalized_player = normalizePlayerRecord(updated_player);
+	const exists = store_contents.some((player) => player.name === normalized_player.name);
+	if (!exists) {
+		return;
+	}
+
+	players.set(
+		store_contents.map((player) =>
+			player.name === normalized_player.name ? normalized_player : player,
+		),
+	);
 }
 
 /**
@@ -73,16 +143,17 @@ export function removePlayer(player: PlayerRecord) {
 		return;
 	}
 	const store_without_player = get(players).filter((contents) => contents.name !== player.name);
+	const positions_to_remove = new Set(player.positions.map((pos) => pos.position));
 
 	// Filter the passed position(s) out of the player listing in the store
 	const new_positions = existing_player.positions.filter(
-		(p) => player.positions.includes(p),
+		(p) => !positions_to_remove.has(p.position),
 	);
 	// If there is at least 1 position left update the record, otherwise remove it.
 	if (new_positions.length > 0) {
 		players.set([
 			...store_without_player,
-			{ name: existing_player.name, positions: new_positions },
+			normalizePlayerRecord({ name: existing_player.name, positions: new_positions }),
 		]);
 	} else {
 		players.set(store_without_player);
@@ -114,7 +185,7 @@ export function updatePlayers(players_to_update: PlayerRecord[]) {
 			name: player.name,
 			positions: player.positions.map((pos) => {
 				if (pos.position === position_update_data.position) {
-					return { position: pos.position, weight: position_update_data.weight };
+					return { ...pos, weight: position_update_data.weight };
 				} else {
 					return pos;
 				}

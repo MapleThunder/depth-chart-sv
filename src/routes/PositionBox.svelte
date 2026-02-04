@@ -4,11 +4,36 @@
 	import { players, type PlayerRecord } from "$lib/stores/player_store";
 
 	export let positionData: PositionData;
+	export let show_secondary_positions = false;
+
+	$: primary_players = $players
+		.filter((plyr) =>
+			plyr.positions.some(
+				(pos) => pos.position === positionData.position && pos.role === "primary",
+			),
+		)
+		.toSorted((a, b) => {
+			// Find the target position in player a
+			const positionA = a.positions.find((p) => p.position === positionData.position);
+			const weightA = positionA ? positionA.weight : Number.MAX_VALUE; // Fallback if position not found
+
+			// Find the target position in player b
+			const positionB = b.positions.find((p) => p.position === positionData.position);
+			const weightB = positionB ? positionB.weight : Number.MAX_VALUE; // Fallback if position not found
+
+			// Compare the weights
+			return weightA - weightB;
+		});
 
 	$: filtered_players = $players
-		.filter(
-			(plyr) => plyr.positions.filter((pos) => pos.position === positionData.position).length > 0,
-		)
+		.filter((plyr) => {
+			if (show_secondary_positions) {
+				return plyr.positions.some((pos) => pos.position === positionData.position);
+			}
+			return plyr.positions.some(
+				(pos) => pos.position === positionData.position && pos.role === "primary",
+			);
+		})
 		.toSorted((a, b) => {
 			// Find the target position in player a
 			const positionA = a.positions.find((p) => p.position === positionData.position);
@@ -50,16 +75,20 @@
 	class="position-box-wrapper"
 	style="grid-area: {mapPositionToGridArea(positionData?.position)}"
 >
-	<div class="position-header" style:background-color={getHeaderBackgroundStyle(filtered_players)}>
+	<div class="position-header" style:background-color={getHeaderBackgroundStyle(primary_players)}>
 		<div class="header-content">
 			<span>{getPositionUILabel(positionData?.position)}</span>
 			<div class="depth-ratio">
-				{filtered_players.length} / {positionData.amount * 2}
+				{primary_players.length} / {positionData.amount * 2}
 			</div>
 		</div>
 	</div>
 	<div class="player-list">
-		<PlayerList position={positionData.position} removesItems={true} />
+		<PlayerList
+			position={positionData.position}
+			removesItems={true}
+			{show_secondary_positions}
+		/>
 	</div>
 </div>
 
