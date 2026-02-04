@@ -766,6 +766,18 @@
 		cursor: pointer;
 	}
 
+	.skill-select option {
+		background: var(--white);
+		color: var(--text-dark);
+	}
+
+	.skill-select option:hover,
+	.skill-select option:focus,
+	.skill-select option:checked {
+		background: color-mix(in srgb, var(--skill-color), #fff 70%);
+		color: var(--text-dark);
+	}
+
 	.skill-select:focus {
 		outline: 2px solid color-mix(in srgb, var(--skill-color), #000 35%);
 		outline-offset: 2px;
