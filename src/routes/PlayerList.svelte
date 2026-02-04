@@ -13,9 +13,17 @@
 
 	export let position: Position;
 	export let removesItems = false;
+	export let show_secondary_positions = false;
 
 	$: filtered_players = $players
-		.filter((player) => player.positions.filter((pos) => pos.position === position).length > 0)
+		.filter((player) => {
+			if (show_secondary_positions) {
+				return player.positions.some((pos) => pos.position === position);
+			}
+			return player.positions.some(
+				(pos) => pos.position === position && pos.role === "primary",
+			);
+		})
 		.toSorted((a, b) => {
 			// Find the target position in player a
 			const positionA = a.positions.find((p) => p.position === position);
