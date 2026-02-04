@@ -3,34 +3,52 @@
 
 <div id="content">
 	<section>
-		<h1>How To Use The Site</h1>
+		<h1>How To Use The Depth Chart</h1>
 
-		<p>Simple quick-start steps:</p>
+		<p>Quick start:</p>
 
 		<ol>
-			<li>Select a formation from the header</li>
-			<li>Add players using the form to different positions</li>
-			<li>Reorder players in their positions as desired</li>
+			<li>Select a formation from the Formation Selection menu</li>
+			<li>Add players with a primary position using the Add a Player form</li>
+			<li>Reorder players within a position by dragging or using the up/down arrows</li>
 		</ol>
 
-		<h2>Positions</h2>
+		<h2>Managing Players</h2>
 
 		<p>
-			There are boxes that signify different positions on the pitch (striker, winger, midfielder,
-			etc.) arranged depending on the formation chosen. The colour of the header bar for each
-			position box changes as you add or remove players to the different positions. A player can be
-			added to multiple positions and when the "X" is clicked on a player they are only removed from
-			that position. The position headers also include a fraction. The fraction represents the
-			(number of players added) / (ideal number of players in the position for the chosen formation)
+			Each position box shows players assigned to that role. Click the pencil icon to edit a player,
+			set their primary position, and add secondary positions with a skill level (high, mid, or low).
+			Click the X to remove a player from a specific position. If a player has no remaining positions,
+			they are removed from the chart.
 		</p>
 
-		<p>The position box header colours have the following meanings:</p>
+		<p>
+			Use the Show secondary positions toggle to include secondary roles in the lists. Depth totals
+			and header colours always use primary positions only.
+		</p>
+
+		<h2>Depth & Colours</h2>
+
+		<p>
+			The header fraction is:
+			primary players in that position / target depth for the formation. Target depth is twice the
+			starting requirement (for example, a two-CB formation targets four total CBs).
+		</p>
+
+		<p>Header colours reflect primary depth:</p>
 
 		<ul>
-			<li>Red: not enough players to start</li>
-			<li>Yellow: enough players to start but more depth needed</li>
-			<li>Green: enough depth in this posiion</li>
+			<li>Green: target depth met or exceeded</li>
+			<li>Yellow: at least one primary player, but below target depth</li>
+			<li>Red: no primary players for that position</li>
 		</ul>
+
+		<h2>Sharing & Saving</h2>
+
+		<p>
+			Use Share Image to download a PNG of the position grid. Clear All Players will remove everyone
+			after confirmation. Your depth chart is saved automatically in this browser.
+		</p>
 	</section>
 </div>
 
