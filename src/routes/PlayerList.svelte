@@ -7,9 +7,15 @@
 	 */
 	import { type Position } from "$lib/positions";
 	import { getPositionSelectOptions } from "$lib/positions";
+	import {
+		comparePlayersForPosition,
+		getPositionForList,
+		getSkillForPosition,
+		isSecondaryForPosition,
+	} from "$lib/player_list_item";
 	import { getVisibleAssignedPosition } from "$lib/player_visibility";
 	import { formation } from "$lib/stores/formation_store";
-	import { players, removePlayer, updatePlayers } from "$lib/stores/player_store";
+	import { players, removePlayer, type PlayerRecord, updatePlayers } from "$lib/stores/player_store";
 	import PlayerEditModal from "./PlayerEditModal.svelte";
 	import { flip } from "svelte/animate";
 
@@ -26,18 +32,7 @@
 			}
 			return getVisibleAssignedPosition(player, visible_positions) === position;
 		})
-		.toSorted((a, b) => {
-			// Find the target position in player a
-			const positionA = a.positions.find((p) => p.position === position);
-			const weightA = positionA ? positionA.weight : Number.MAX_VALUE; // Fallback if position not found
-
-			// Find the target position in player b
-			const positionB = b.positions.find((p) => p.position === position);
-			const weightB = positionB ? positionB.weight : Number.MAX_VALUE; // Fallback if position not found
-
-			// Compare the weights
-			return weightA - weightB;
-		});
+		.toSorted((a, b) => comparePlayersForPosition(a, b, position));
 
 	let ghost: HTMLElement;
 	let grabbed: HTMLElement | null = null;
@@ -143,6 +138,30 @@
 		show_edit_modal = false;
 		editing_player_name = "";
 	}
+
+	function getListPosition(player: PlayerRecord) {
+		return getPositionForList(player, position);
+	}
+
+	function isSecondary(player: PlayerRecord): boolean {
+		return isSecondaryForPosition(player, position);
+	}
+
+	function getSkill(player: PlayerRecord): "low" | "mid" | "high" {
+		return getSkillForPosition(player, position);
+	}
+
+	function getSkillColor(skill: "low" | "mid" | "high"): string {
+		if (skill === "low") return "hsl(8 78% 56%)";
+		if (skill === "high") return "hsl(120 52% 45%)";
+		return "hsl(46 92% 54%)";
+	}
+
+	function getSkillFadeColor(skill: "low" | "mid" | "high"): string {
+		if (skill === "low") return "hsl(8 78% 56% / 0)";
+		if (skill === "high") return "hsl(120 52% 45% / 0)";
+		return "hsl(46 92% 54% / 0)";
+	}
 </script>
 
 <main class="dragdroplist">
@@ -183,9 +202,11 @@
 					? "grabbed"
 					: ""}
 				class="item"
+				class:item-secondary={isSecondary(player)}
 				data-index={i}
 				data-id={player.name ? player.name : JSON.stringify(player)}
 				data-grabY="0"
+				style={`--skill-color: ${getSkillColor(getSkill(player))}; --skill-fade-color: ${getSkillFadeColor(getSkill(player))};`}
 				on:mousedown={function (ev) {
 					grab(ev.clientY, ev.currentTarget as HTMLElement);
 				}}
@@ -235,7 +256,12 @@
 				</div>
 
 				<div class="content">
-					{player.name}
+					<span class="player-name">{player.name}</span>
+					{#if isSecondary(player)}
+						<span class="meta-row">
+							<span class="pill role-pill role-secondary">2nd</span>
+						</span>
+					{/if}
 				</div>
 
 				<div class="buttons actions">
@@ -298,6 +324,24 @@
 		border-radius: 10px;
 		padding: 0.15rem 0.25rem;
 		user-select: none;
+		position: relative;
+		overflow: hidden;
+		isolation: isolate;
+	}
+
+	.item::after {
+		content: "";
+		position: absolute;
+		inset: 0 0 0 auto;
+		width: 36%;
+		background: linear-gradient(90deg, var(--skill-fade-color) 0%, var(--skill-color) 100%);
+		opacity: 0.35;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.item.item-secondary::after {
+		opacity: 0.22;
 	}
 
 	.item:last-child {
@@ -310,6 +354,46 @@
 
 	.item > * {
 		margin: auto;
+		position: relative;
+		z-index: 1;
+	}
+
+	.content {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.15rem;
+		padding: 0.1rem 0.25rem;
+	}
+
+	.player-name {
+		font-weight: 600;
+		line-height: 1.1;
+	}
+
+	.meta-row {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		flex-wrap: wrap;
+	}
+
+	.pill {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.05rem 0.4rem;
+		border-radius: 999px;
+		font-size: 0.68rem;
+		line-height: 1.15;
+		border: 1px solid transparent;
+		background: rgba(255, 255, 255, 0.75);
+	}
+
+	.role-pill.role-secondary {
+		border-color: rgba(30, 64, 175, 0.28);
+		color: #1e40af;
+		background: rgba(219, 234, 254, 0.9);
 	}
 
 	.buttons {
@@ -381,6 +465,10 @@
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
+		}
+
+		.meta-row {
+			white-space: normal;
 		}
 	}
 </style>
