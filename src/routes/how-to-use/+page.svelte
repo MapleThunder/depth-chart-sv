@@ -17,9 +17,9 @@
 
 		<p>
 			Each position box shows players assigned to that role. Click the pencil icon to edit a player,
-			set their primary position, and add secondary positions with a skill level (high, mid, or low).
-			Click the X to remove a player from a specific position. If a player has no remaining positions,
-			they are removed from the chart.
+			set their primary position, and add secondary positions with a skill level (high, mid, or
+			low). Click the X to remove a player from a specific position. If a player has no remaining
+			positions, they are removed from the chart.
 		</p>
 
 		<p>
@@ -30,9 +30,9 @@
 		<h2>Depth & Colours</h2>
 
 		<p>
-			The header fraction is:
-			primary players in that position / target depth for the formation. Target depth is twice the
-			starting requirement (for example, a two-CB formation targets four total CBs).
+			The header fraction is: primary players in that position / target depth for the formation.
+			Target depth is twice the starting requirement (for example, a two-CB formation targets four
+			total CBs).
 		</p>
 
 		<p>Header colours reflect primary depth:</p>

@@ -64,9 +64,9 @@
 				</label>
 				<span>Show secondary positions</span>
 			</div>
-	
+
 			<hr />
-	
+
 			<div class="button-wrapper">
 				<SharePictureButton />
 				<ClearAllButton />

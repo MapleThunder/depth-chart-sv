@@ -62,11 +62,7 @@
 		</div>
 	</div>
 	<div class="player-list">
-		<PlayerList
-			position={positionData.position}
-			removesItems={true}
-			{show_secondary_positions}
-		/>
+		<PlayerList position={positionData.position} removesItems={true} {show_secondary_positions} />
 	</div>
 </div>
 

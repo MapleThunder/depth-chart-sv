@@ -54,7 +54,7 @@
 		edit_secondary_skills = existing_player.positions.reduce(
 			(acc, pos) => {
 				if (pos.position !== primary_position?.position) {
-					const skill = pos.skill ?? "mid";
+					const skill = pos.skill === "medium" ? "mid" : (pos.skill ?? "mid");
 					acc[pos.position] = skill;
 				}
 				return acc;
@@ -89,8 +89,13 @@
 				role: pos === edit_primary_position ? "primary" : "secondary",
 				skill:
 					pos === edit_primary_position
-						? (existing_position?.skill ?? "mid")
-						: (edit_secondary_skills[pos] ?? (existing_position?.skill ?? "mid")),
+						? existing_position?.skill === "medium"
+							? "mid"
+							: (existing_position?.skill ?? "mid")
+						: (edit_secondary_skills[pos] ??
+							(existing_position?.skill === "medium"
+								? "mid"
+								: (existing_position?.skill ?? "mid"))),
 			};
 		});
 

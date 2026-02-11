@@ -31,10 +31,8 @@ export type PositionOption = { label: string; value: Position };
  * Given a position code, returns the corresponding position label.
  */
 export function getPositionUILabel(position_code: string): string {
-	const position_key = Object.entries(Position)
-		.find(([_, val]) => val === position_code)?.[0];
+	const position_key = Object.entries(Position).find(([_, val]) => val === position_code)?.[0];
 	if (position_key === undefined) {
-
 		console.error(`No position found for code: ${position_code}`);
 		return "";
 	}
