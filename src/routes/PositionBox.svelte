@@ -1,39 +1,17 @@
 <script lang="ts">
-	import { getPositionUILabel, type PositionData } from "$lib/positions";
+	import { getPositionSelectOptions, getPositionUILabel, type PositionData } from "$lib/positions";
+	import { getVisibleAssignedPosition } from "$lib/player_visibility";
+	import { formation } from "$lib/stores/formation_store";
 	import PlayerList from "./PlayerList.svelte";
 	import { players, type PlayerRecord } from "$lib/stores/player_store";
 
 	export let positionData: PositionData;
 	export let show_secondary_positions = false;
 
+	$: visible_positions = new Set(getPositionSelectOptions($formation).map((option) => option.value));
+
 	$: primary_players = $players
-		.filter((plyr) =>
-			plyr.positions.some(
-				(pos) => pos.position === positionData.position && pos.role === "primary",
-			),
-		)
-		.toSorted((a, b) => {
-			// Find the target position in player a
-			const positionA = a.positions.find((p) => p.position === positionData.position);
-			const weightA = positionA ? positionA.weight : Number.MAX_VALUE; // Fallback if position not found
-
-			// Find the target position in player b
-			const positionB = b.positions.find((p) => p.position === positionData.position);
-			const weightB = positionB ? positionB.weight : Number.MAX_VALUE; // Fallback if position not found
-
-			// Compare the weights
-			return weightA - weightB;
-		});
-
-	$: filtered_players = $players
-		.filter((plyr) => {
-			if (show_secondary_positions) {
-				return plyr.positions.some((pos) => pos.position === positionData.position);
-			}
-			return plyr.positions.some(
-				(pos) => pos.position === positionData.position && pos.role === "primary",
-			);
-		})
+		.filter((plyr) => getVisibleAssignedPosition(plyr, visible_positions) === positionData.position)
 		.toSorted((a, b) => {
 			// Find the target position in player a
 			const positionA = a.positions.find((p) => p.position === positionData.position);
