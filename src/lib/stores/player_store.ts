@@ -7,7 +7,7 @@ export type PlayerPosition = {
 	position: Position;
 	weight: number;
 	role?: "primary" | "secondary";
-	skill?: "low" | "mid" | "high";
+	skill?: "low" | "mid" | "high" | "medium";
 };
 
 export type PlayerRecord = {
@@ -49,10 +49,7 @@ function normalizePositions(positions: PlayerPosition[]): PlayerPosition[] {
 	const normalized = positions.map((pos) => ({
 		...pos,
 		role: pos.role ?? "secondary",
-		skill:
-			pos.skill === "medium"
-				? "mid"
-				: pos.skill ?? "mid",
+		skill: pos.skill === "medium" ? "mid" : (pos.skill ?? "mid"),
 	}));
 
 	let primary_index = normalized.findIndex((pos) => pos.role === "primary");
