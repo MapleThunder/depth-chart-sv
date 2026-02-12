@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
+	import TermTooltip from "$lib/TermTooltip.svelte";
 	import { settings, type AppSettings } from "$lib/stores/settings_store";
 
 	export let open = false;
@@ -45,7 +46,17 @@
 			<div class="modal-body">
 				<label class="setting-row" for="show-skill-gradient">
 					<div>
-						<span class="setting-title">Player Skill Colour Gradient</span>
+						<span class="setting-title">
+							<TermTooltip
+								label="Player Skill Colour Gradient"
+								tooltip_id="skill-gradient-tooltip-settings"
+							>
+								a subtle colour on each player row based on skill level:
+								<span class="tooltip-skill-high">high</span>,
+								<span class="tooltip-skill-mid">mid</span>, and
+								<span class="tooltip-skill-low">low</span>
+							</TermTooltip>
+						</span>
 						<span class="setting-copy">Show the right-side colour gradient on player rows.</span>
 					</div>
 					<span class="switch">

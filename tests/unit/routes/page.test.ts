@@ -5,12 +5,17 @@ import Page from "../../../src/routes/+page.svelte";
 import { Position } from "$lib/positions";
 import { Formation, formation } from "$lib/stores/formation_store";
 import { players } from "$lib/stores/player_store";
+import { settings } from "$lib/stores/settings_store";
 
 describe("+page", () => {
 	beforeEach(() => {
 		localStorage.clear();
 		players.set([]);
 		formation.set(Formation.FourFourTwo);
+		settings.set({
+			show_skill_gradient: true,
+			show_secondary_positions: false,
+		});
 	});
 
 	it("shows and hides the unassigned panel when formation changes visibility", async () => {
@@ -48,7 +53,7 @@ describe("+page", () => {
 
 		expect(screen.getAllByText("Dual Role Player")).toHaveLength(1);
 
-		await userEvent.click(screen.getByRole("checkbox"));
+		settings.update((current) => ({ ...current, show_secondary_positions: true }));
 
 		await waitFor(() => {
 			expect(screen.getAllByText("Dual Role Player")).toHaveLength(2);

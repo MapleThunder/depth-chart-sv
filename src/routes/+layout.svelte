@@ -1,9 +1,11 @@
 <script lang="ts">
 	import "../styles.css";
+	import HowToUseModal from "./HowToUseModal.svelte";
 	import SettingsModal from "./SettingsModal.svelte";
 
 	const currentYear = new Date().getFullYear();
 	let show_settings_modal = false;
+	let show_how_to_use_modal = false;
 
 	function openSettingsModal(): void {
 		show_settings_modal = true;
@@ -11,6 +13,14 @@
 
 	function closeSettingsModal(): void {
 		show_settings_modal = false;
+	}
+
+	function openHowToUseModal(): void {
+		show_how_to_use_modal = true;
+	}
+
+	function closeHowToUseModal(): void {
+		show_how_to_use_modal = false;
 	}
 </script>
 
@@ -23,7 +33,7 @@
 		<a id="home-link" href="/">Depth Chart</a>
 
 		<div class="header-controls">
-			<a href="/how-to-use" class="help-link">How to Use</a>
+			<button type="button" class="help-link" on:click={openHowToUseModal}>How to Use</button>
 			<button
 				type="button"
 				class="settings-link"
@@ -51,11 +61,12 @@
 				Cod Bod Designs
 			</a>
 		</span>
-		<a href="/how-to-use" class="help-link">How to Use the App</a>
+		<button type="button" class="help-link" on:click={openHowToUseModal}>How to Use the App</button>
 	</div>
 </footer>
 
 <SettingsModal open={show_settings_modal} on:close={closeSettingsModal} />
+<HowToUseModal open={show_how_to_use_modal} on:close={closeHowToUseModal} />
 
 <style>
 	header,
@@ -115,8 +126,22 @@
 		border-bottom: 2px solid transparent;
 		transition: border-color 0.2s ease;
 	}
+
+	.help-link {
+		color: var(--text-light);
+		font: inherit;
+		background: transparent;
+		border: none;
+		border-bottom: 2px solid transparent;
+		padding: 0;
+		cursor: pointer;
+		transition: border-color 0.2s ease;
+	}
+
 	a:hover,
-	a:focus {
+	a:focus,
+	.help-link:hover,
+	.help-link:focus {
 		border-bottom: 2px solid var(--accent);
 	}
 
@@ -176,7 +201,7 @@
 			width: fit-content;
 		}
 
-		div.header-controls a.help-link {
+		div.header-controls .help-link {
 			display: none;
 		}
 	}
