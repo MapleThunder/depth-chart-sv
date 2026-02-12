@@ -25,8 +25,8 @@ describe("player_list_item", () => {
 		expect(isSecondaryForPosition(player("B", "primary", 1), Position.CentreMid)).toBe(false);
 	});
 
-	it("always treats primary role as high skill", () => {
-		expect(getSkillForPosition(player("A", "primary", 1, "low"), Position.CentreMid)).toBe("high");
+	it("uses configured skill for primary role with high fallback", () => {
+		expect(getSkillForPosition(player("A", "primary", 1, "low"), Position.CentreMid)).toBe("low");
 		expect(getSkillForPosition(player("B", "primary", 1), Position.CentreMid)).toBe("high");
 	});
 
@@ -36,16 +36,30 @@ describe("player_list_item", () => {
 		expect(getSkillForPosition(player("C", "secondary", 1), Position.CentreMid)).toBe("mid");
 	});
 
-	it("sorts primary entries above secondary entries", () => {
-		const primary = player("A", "primary", 99);
-		const secondary = player("B", "secondary", 0);
+	it("sorts by skill before role", () => {
+		const primary_mid = player("A", "primary", 99, "mid");
+		const secondary_high = player("B", "secondary", 0, "high");
+		expect(comparePlayersForPosition(primary_mid, secondary_high, Position.CentreMid)).toBeGreaterThan(0);
+		expect(comparePlayersForPosition(secondary_high, primary_mid, Position.CentreMid)).toBeLessThan(0);
+	});
+
+	it("sorts primary entries above secondary entries when skills tie", () => {
+		const primary = player("A", "primary", 99, "mid");
+		const secondary = player("B", "secondary", 0, "mid");
 		expect(comparePlayersForPosition(primary, secondary, Position.CentreMid)).toBeLessThan(0);
 		expect(comparePlayersForPosition(secondary, primary, Position.CentreMid)).toBeGreaterThan(0);
 	});
 
-	it("sorts by weight within the same role group", () => {
+	it("sorts by weight within the same role and skill group", () => {
 		const a = player("A", "secondary", 1);
 		const b = player("B", "secondary", 3);
+		expect(comparePlayersForPosition(a, b, Position.CentreMid)).toBeLessThan(0);
+		expect(comparePlayersForPosition(b, a, Position.CentreMid)).toBeGreaterThan(0);
+	});
+
+	it("sorts by name when role, skill, and weight are equal", () => {
+		const a = player("Alex", "secondary", 1, "mid");
+		const b = player("Blair", "secondary", 1, "mid");
 		expect(comparePlayersForPosition(a, b, Position.CentreMid)).toBeLessThan(0);
 		expect(comparePlayersForPosition(b, a, Position.CentreMid)).toBeGreaterThan(0);
 	});

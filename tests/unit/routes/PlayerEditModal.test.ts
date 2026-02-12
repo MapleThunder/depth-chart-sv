@@ -49,4 +49,16 @@ describe("PlayerEditModal", () => {
 		expect(alex.positions[0].position).toBe(Position.CentreMid);
 		expect(alex.positions[0].role).toBe("primary");
 	});
+
+	it("updates the primary position skill", async () => {
+		seedPlayer([{ position: Position.CentreMid, weight: 2, role: "primary", skill: "high" }]);
+
+		render(PlayerEditModal, { open: true, playerName: "Alex" });
+		await userEvent.selectOptions(screen.getByRole("combobox", { name: "Skill" }), "mid");
+		await userEvent.click(screen.getByRole("button", { name: "Save" }));
+
+		const [alex] = get(players);
+		const primary = alex.positions.find((pos) => pos.role === "primary");
+		expect(primary?.skill).toBe("mid");
+	});
 });

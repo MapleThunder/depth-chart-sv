@@ -58,7 +58,7 @@
 			></path>
 		</svg> 
 		icon to edit a player, set
-		their primary position, and add secondary positions with a skill level (high, mid, or low). Click
+		their primary position, choose ability level (high, mid, or low), and add secondary positions. Click
 		the X to remove a player from a specific position. If a player has no remaining positions, they are
 		removed from the chart.
 	</p>
