@@ -36,6 +36,15 @@
 			<button type="button" class="help-link" on:click={openHowToUseModal}>How to Use</button>
 			<button
 				type="button"
+				class="help-icon-link"
+				aria-label="How to Use"
+				title="How to Use"
+				on:click={openHowToUseModal}
+			>
+				?
+			</button>
+			<button
+				type="button"
 				class="settings-link"
 				aria-label="Settings"
 				title="Settings"
@@ -120,6 +129,34 @@
 		color: var(--accent);
 	}
 
+	.help-icon-link {
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 1.35rem;
+		height: 1.35rem;
+		padding: 0;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.45);
+		background: rgba(255, 255, 255, 0.16);
+		color: var(--text-light);
+		font-size: 0.86rem;
+		font-weight: 700;
+		line-height: 1;
+		cursor: pointer;
+		transition:
+			background-color 0.2s ease,
+			border-color 0.2s ease,
+			color 0.2s ease;
+	}
+
+	.help-icon-link:hover,
+	.help-icon-link:focus {
+		background: rgba(255, 255, 255, 0.28);
+		border-color: rgba(255, 255, 255, 0.62);
+		color: var(--accent);
+	}
+
 	a {
 		color: var(--text-light);
 		text-decoration: none;
@@ -189,7 +226,7 @@
 
 	@media screen and (max-width: 700px) {
 		div.header-content {
-			padding: 0 5px;
+			padding: 0.7rem var(--side);
 		}
 
 		#footer-content {
@@ -203,6 +240,10 @@
 
 		div.header-controls .help-link {
 			display: none;
+		}
+
+		div.header-controls .help-icon-link {
+			display: inline-flex;
 		}
 	}
 </style>

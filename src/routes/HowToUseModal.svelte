@@ -135,8 +135,30 @@
 	}
 
 	.modal-body {
-		padding: 1rem;
+		padding: 1rem 1rem 1.4rem;
 		overflow: auto;
 		min-height: 0;
+		display: flex;
+		justify-content: center;
+	}
+
+	@media screen and (max-width: 900px) {
+		.modal-backdrop {
+			padding: 0.6rem;
+		}
+
+		.modal-body {
+			padding: 0.7rem 0.7rem 1rem;
+		}
+	}
+
+	@media screen and (max-width: 560px) {
+		.modal-header {
+			padding: 0.75rem 0.8rem;
+		}
+
+		.modal-body {
+			padding: 0.55rem 0.55rem 0.85rem;
+		}
 	}
 </style>

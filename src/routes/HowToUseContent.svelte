@@ -1,5 +1,24 @@
 <script lang="ts">
 	import TermTooltip from "$lib/TermTooltip.svelte";
+
+	type SkillLevel = "low" | "mid" | "high";
+
+	let demo_skill: SkillLevel = "mid";
+	let demo_show_gradient = true;
+	let demo_show_secondary = true;
+
+	function getSkillColour(skill: SkillLevel): string {
+		if (skill === "low") return "hsl(8 78% 56%)";
+		if (skill === "high") return "hsl(120 52% 45%)";
+		return "hsl(46 92% 54%)";
+	}
+
+	function getSkillFadeColour(skill: SkillLevel): string {
+		if (skill === "low") return "hsl(8 78% 56% / 0)";
+		if (skill === "high") return "hsl(120 52% 45% / 0)";
+		return "hsl(46 92% 54% / 0)";
+	}
+
 </script>
 
 <section class="how-to-use-content">
@@ -87,7 +106,10 @@
 		<div class="depth-item">
 			<div>
 				<strong>Default</strong>
-				<p>Groups primary players above secondary players, then uses list order.</p>
+				<p>
+					Sorts players by skill, high to low, with primary positions above secondary when skill is 
+					equal.
+				</p>
 			</div>
 		</div>
 		<div class="depth-item">
@@ -130,6 +152,90 @@
 		</div>
 	</div>
 
+	<h2>Reading Player Rows</h2>
+	<p>
+		Use this demo row to see what each visual cue means. Change the options to preview how settings affect
+		what you see in each position list.
+	</p>
+	<section class="row-demo" aria-label="Player row demo">
+		<div class="row-demo-controls">
+			<label class="row-demo-control">
+				<span>Skill Level</span>
+				<select
+					class="row-demo-skill-select"
+					bind:value={demo_skill}
+					aria-label="Demo skill level"
+					style={`--skill-color: ${getSkillColour(demo_skill)}`}
+				>
+					<option value="high">High</option>
+					<option value="mid">Mid</option>
+					<option value="low">Low</option>
+				</select>
+			</label>
+			<label class="row-demo-toggle">
+				<input type="checkbox" bind:checked={demo_show_gradient} />
+				<span>Show skill gradient</span>
+			</label>
+			<label class="row-demo-toggle">
+				<input type="checkbox" bind:checked={demo_show_secondary} />
+				<span>Show secondary pill</span>
+			</label>
+		</div>
+
+		<article
+			class="demo-item"
+			class:demo-item-secondary={demo_show_secondary}
+			class:demo-item-has-skill-gradient={demo_show_gradient}
+			style={`--skill-color: ${getSkillColour(demo_skill)}; --skill-fade-color: ${getSkillFadeColour(demo_skill)};`}
+			data-testid="row-demo-item"
+		>
+			<div class="demo-buttons" aria-hidden="true">
+				<span></span>
+				<span></span>
+			</div>
+			<div class="demo-content">
+				<span class="player-name">Jordan Example</span>
+				<span class="meta-row">
+					<span class="pill role-pill role-primary">Primary: ST</span>
+					{#if demo_show_secondary}
+						<span class="pill role-pill role-secondary">2nd</span>
+					{/if}
+				</span>
+			</div>
+			<div class="demo-buttons actions" aria-hidden="true">
+				<span></span>
+				<span></span>
+			</div>
+		</article>
+
+		<div class="row-demo-notes" aria-label="Row cue legend">
+			<p class="row-demo-note-row">
+				<span class="row-demo-inline-note">
+					<TermTooltip label="i" tooltip_id="row-primary-pill-note-tooltip-how-to">
+						Only shown when a player appears under a secondary position
+					</TermTooltip>
+				</span>
+				<span class="row-demo-note-text"><strong>Primary: ST</strong> identifies the player’s main role.</span>
+			</p>
+			<p class="row-demo-note-row">
+				<span class="row-demo-inline-note">
+					<TermTooltip label="i" tooltip_id="row-secondary-pill-note-tooltip-how-to">
+						Only shown when a player appears under a secondary position
+					</TermTooltip>
+				</span>
+				<span class="row-demo-note-text"
+					><strong>2nd pill</strong> means this player is shown here as a secondary position.</span
+				>
+			</p>
+			<p class="row-demo-note-row">
+				<span class="row-demo-inline-note row-demo-inline-note--placeholder" aria-hidden="true">i</span>
+				<span class="row-demo-note-text"
+					><strong>Right-side gradient</strong> reflects skill level when enabled in Settings.</span
+				>
+			</p>
+		</div>
+	</section>
+
 	<h2>Sharing & Saving</h2>
 	<div class="action-strip" aria-label="Share and save actions">
 		<div class="action-chip">
@@ -163,8 +269,18 @@
 		background-color: var(--paper);
 		padding: 1.2rem;
 		border-radius: var(--border-radius);
+		width: 100%;
 		max-width: var(--column);
-		border: var(--border);
+		margin-inline: auto;
+		box-sizing: border-box;
+		overflow-x: clip;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.how-to-use-content > * {
+		min-width: 0;
+		max-width: 100%;
 	}
 
 	.how-to-use-content h1 {
@@ -178,6 +294,11 @@
 
 	.how-to-use-content p {
 		margin-top: 0.4rem;
+		overflow-wrap: anywhere;
+	}
+
+	.how-to-use-content > p:last-child {
+		margin-bottom: 0.9rem;
 	}
 
 	.intro {
@@ -188,6 +309,18 @@
 		display: grid;
 		gap: 0.7rem;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
+		width: 100%;
+		min-width: 0;
+		height: auto;
+		overflow: visible;
+		border: 0;
+		outline: 0;
+		max-width: 100%;
+	}
+
+	.quick-start-grid > * {
+		min-width: 0;
+		max-width: 100%;
 	}
 
 	.step-card {
@@ -195,6 +328,9 @@
 		border-radius: 10px;
 		padding: 0.8rem;
 		background: linear-gradient(160deg, hsl(0, 0%, 100%), hsl(210, 18%, 97%));
+		min-width: 0;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
 	.step-number {
@@ -235,6 +371,7 @@
 		gap: 0.45rem;
 		background-color: var(--white);
 		font-size: 0.88rem;
+		min-width: 0;
 	}
 
 	.chip-icon {
@@ -243,6 +380,7 @@
 		justify-content: center;
 		min-width: 1.25rem;
 		height: 1.25rem;
+		flex-shrink: 0;
 		border-radius: 999px;
 		background: hsl(210, 26%, 91%);
 		font-weight: 700;
@@ -253,6 +391,11 @@
 	.chip-icon svg {
 		display: block;
 		fill: currentColor;
+	}
+
+	.action-chip > span:last-child {
+		min-width: 0;
+		overflow-wrap: anywhere;
 	}
 
 	.depth-legend {
@@ -268,6 +411,7 @@
 		padding: 0.65rem 0.75rem;
 		border: 1px solid transparent;
 		border-radius: 10px;
+		min-width: 0;
 	}
 
 	.depth-item p {
@@ -310,14 +454,254 @@
 		background-color: var(--red);
 	}
 
+	.row-demo {
+		border: var(--border);
+		border-radius: 12px;
+		padding: 0.75rem;
+		background: linear-gradient(160deg, hsl(0, 0%, 100%), hsl(210, 18%, 97%));
+		display: grid;
+		gap: 0.7rem;
+	}
+
+	.row-demo-controls {
+		display: flex;
+		gap: 0.8rem;
+		flex-wrap: wrap;
+		align-items: flex-end;
+	}
+
+	.row-demo-control {
+		display: inline-flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		font-size: 0.88rem;
+		font-weight: 600;
+	}
+
+	.row-demo-skill-select {
+		appearance: none;
+		border-radius: 999px;
+		border: 1px solid transparent;
+		width: 34px;
+		height: 34px;
+		padding: 0;
+		min-width: 34px;
+		background: var(--skill-color);
+		box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--skill-color), #000 18%);
+		color: transparent;
+		text-indent: -999px;
+		cursor: pointer;
+	}
+
+	.row-demo-skill-select option {
+		background: var(--white);
+		color: var(--text-dark);
+	}
+
+	.row-demo-skill-select option:hover,
+	.row-demo-skill-select option:focus,
+	.row-demo-skill-select option:checked {
+		background: color-mix(in srgb, var(--skill-color), #fff 70%);
+		color: var(--text-dark);
+	}
+
+	.row-demo-skill-select:focus {
+		outline: 2px solid color-mix(in srgb, var(--skill-color), #000 35%);
+		outline-offset: 2px;
+	}
+
+	.row-demo-toggle {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-size: 0.88rem;
+	}
+
+	.demo-item {
+		box-sizing: border-box;
+		display: inline-flex;
+		width: 100%;
+		min-height: 2.2em;
+		background-color: var(--white);
+		border: 1px solid var(--panel-border);
+		border-radius: 10px;
+		padding: 0.15rem 0.25rem;
+		position: relative;
+		overflow: hidden;
+		isolation: isolate;
+	}
+
+	.demo-item::after {
+		content: "";
+		position: absolute;
+		inset: 0 0 0 auto;
+		width: 36%;
+		background: linear-gradient(90deg, var(--skill-fade-color) 0%, var(--skill-color) 100%);
+		opacity: 0;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.demo-item.demo-item-has-skill-gradient::after {
+		opacity: 0.35;
+	}
+
+	.demo-item.demo-item-secondary.demo-item-has-skill-gradient::after {
+		opacity: 0.22;
+	}
+
+	.demo-item > * {
+		margin: auto;
+		position: relative;
+		z-index: 1;
+	}
+
+	.demo-content {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.2rem;
+		padding: 0.12rem 0.25rem;
+	}
+
+	.demo-buttons {
+		width: 26px;
+		min-width: 26px;
+		display: flex;
+		flex-direction: column;
+		gap: 0.22rem;
+	}
+
+	.demo-buttons span {
+		display: block;
+		width: 14px;
+		height: 14px;
+		border-radius: 999px;
+		background: hsl(210, 22%, 87%);
+	}
+
+	.demo-buttons.actions span {
+		background: hsl(210, 22%, 82%);
+	}
+
+	.pill {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.05rem 0.4rem;
+		border-radius: 999px;
+		font-size: 0.68rem;
+		line-height: 1.15;
+		border: 1px solid transparent;
+		background: rgba(255, 255, 255, 0.75);
+	}
+
+	.role-pill.role-primary {
+		border-color: rgba(30, 58, 138, 0.2);
+		color: #1e3a8a;
+		background: rgba(219, 234, 254, 0.78);
+	}
+
+	.role-pill.role-secondary {
+		border-color: rgba(30, 64, 175, 0.28);
+		color: #1e40af;
+		background: rgba(219, 234, 254, 0.9);
+	}
+
+	.row-demo-notes {
+		display: grid;
+		gap: 0.4rem;
+		font-size: 0.88rem;
+	}
+
+	.row-demo-note-row {
+		margin: 0;
+		display: flex;
+		align-items: flex-start;
+		gap: 0.34rem;
+	}
+
+	.row-demo-inline-note {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex: 0 0 1.05rem;
+		width: 1.05rem;
+		height: 1.05rem;
+		margin-top: 0.05rem;
+	}
+
+	.row-demo-note-text {
+		display: inline;
+		min-width: 0;
+		overflow-wrap: anywhere;
+	}
+
+	.row-demo-inline-note :global(.tooltip-trigger) {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.05rem;
+		height: 1.05rem;
+		border-radius: 999px;
+		font-size: 0.72rem;
+		font-weight: 700;
+		text-decoration: none;
+		background: hsl(210, 24%, 90%);
+		color: hsl(210, 40%, 28%);
+		line-height: 1;
+	}
+
+	.row-demo-inline-note--placeholder {
+		visibility: hidden;
+	}
+
 	@media screen and (max-width: 900px) {
-		.quick-start-grid,
+		.how-to-use-content {
+			padding: 1rem;
+		}
+
+		.quick-start-grid {
+			display: flex;
+			flex-direction: column;
+		}
+
 		.action-strip {
 			grid-template-columns: 1fr;
 		}
 
 		.depth-legend {
 			grid-template-columns: 1fr;
+		}
+
+		.row-demo-controls {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.row-demo-control {
+			align-items: flex-start;
+		}
+
+		.action-chip {
+			border-radius: 12px;
+			align-items: flex-start;
+		}
+	}
+
+	@media screen and (max-width: 1080px) {
+		.quick-start-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media screen and (max-width: 560px) {
+		.how-to-use-content {
+			padding: 0.85rem;
+		}
+
+		.row-demo {
+			padding: 0.65rem;
 		}
 	}
 </style>
