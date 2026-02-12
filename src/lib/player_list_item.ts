@@ -16,15 +16,24 @@ export function getSkillForPosition(
 	player: PlayerRecord,
 	position: Position,
 ): "low" | "mid" | "high" {
-	if (!isSecondaryForPosition(player, position)) {
-		return "high";
-	}
-
-	const skill = getPositionForList(player, position)?.skill;
+	const list_position = getPositionForList(player, position);
+	const skill = list_position?.skill;
 	if (skill === "low" || skill === "high") {
 		return skill;
 	}
+	if (skill === "mid") {
+		return "mid";
+	}
+	if (list_position?.role === "primary") {
+		return "high";
+	}
 	return "mid";
+}
+
+function getSkillScore(skill: "low" | "mid" | "high"): number {
+	if (skill === "high") return 3;
+	if (skill === "mid") return 2;
+	return 1;
 }
 
 export function comparePlayersForPosition(
@@ -32,6 +41,12 @@ export function comparePlayersForPosition(
 	b: PlayerRecord,
 	position: Position,
 ): number {
+	const skill_a = getSkillScore(getSkillForPosition(a, position));
+	const skill_b = getSkillScore(getSkillForPosition(b, position));
+	if (skill_a !== skill_b) {
+		return skill_b - skill_a;
+	}
+
 	const roleA = isSecondaryForPosition(a, position) ? 1 : 0;
 	const roleB = isSecondaryForPosition(b, position) ? 1 : 0;
 	if (roleA !== roleB) {
@@ -42,5 +57,9 @@ export function comparePlayersForPosition(
 	const positionB = getPositionForList(b, position);
 	const weightA = positionA ? positionA.weight : Number.MAX_VALUE;
 	const weightB = positionB ? positionB.weight : Number.MAX_VALUE;
-	return weightA - weightB;
+	if (weightA !== weightB) {
+		return weightA - weightB;
+	}
+
+	return a.name.localeCompare(b.name);
 }
