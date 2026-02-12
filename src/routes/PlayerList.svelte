@@ -15,7 +15,12 @@
 	} from "$lib/player_list_item";
 	import { getVisibleAssignedPosition } from "$lib/player_visibility";
 	import { formation } from "$lib/stores/formation_store";
-	import { players, removePlayer, type PlayerRecord, updatePlayers } from "$lib/stores/player_store";
+	import {
+		players,
+		removePlayer,
+		type PlayerRecord,
+		updatePlayers,
+	} from "$lib/stores/player_store";
 	import { settings } from "$lib/stores/settings_store";
 	import PlayerEditModal from "./PlayerEditModal.svelte";
 	import { flip } from "svelte/animate";
@@ -24,7 +29,9 @@
 	export let removesItems = false;
 	export let show_secondary_positions = false;
 
-	$: visible_positions = new Set(getPositionSelectOptions($formation).map((option) => option.value));
+	$: visible_positions = new Set(
+		getPositionSelectOptions($formation).map((option) => option.value),
+	);
 
 	$: filtered_players = $players
 		.filter((player) => {
@@ -33,7 +40,7 @@
 			}
 			return getVisibleAssignedPosition(player, visible_positions) === position;
 		})
-		.toSorted((a, b) => comparePlayersForPosition(a, b, position));
+		.toSorted((a, b) => comparePlayersForPosition(a, b, position, $settings.player_sort_mode));
 
 	let ghost: HTMLElement;
 	let grabbed: HTMLElement | null = null;
@@ -100,20 +107,10 @@
 		filtered_players = [...filtered_players.slice(0, from), ...filtered_players.slice(from + 1)];
 		filtered_players = [...filtered_players.slice(0, to), temp, ...filtered_players.slice(to)];
 
-		const updated_player_weights = filtered_players.map((plyr, idx) => {
-			const updated_plyr = {
-				name: plyr.name,
-				positions: plyr.positions.map((pos) => {
-					if (pos.position === position) {
-						return { position, weight: idx };
-					} else {
-						return pos;
-					}
-				}),
-			};
-
-			return updated_plyr;
-		});
+		const updated_player_weights = filtered_players.map((plyr, idx) => ({
+			name: plyr.name,
+			positions: [{ position, weight: idx }],
+		}));
 
 		updatePlayers(updated_player_weights);
 	}
@@ -301,7 +298,11 @@
 	</section>
 </main>
 
-<PlayerEditModal open={show_edit_modal} playerName={editing_player_name} on:close={closeEditModal} />
+<PlayerEditModal
+	open={show_edit_modal}
+	playerName={editing_player_name}
+	on:close={closeEditModal}
+/>
 
 <style>
 	main {

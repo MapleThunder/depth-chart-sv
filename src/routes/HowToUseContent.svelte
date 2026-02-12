@@ -50,32 +50,28 @@
 	</div>
 
 	<p>
-		Each position box shows players assigned to that role. Click the 
+		Each position box shows players assigned to that role. Click the
 		<svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 24 24" width="12">
 			<path d="M0 0h24v24H0z" fill="none"></path>
 			<path
 				d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm18-11.5a.996.996 0 0 0 0-1.41l-2.59-2.59a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0z"
 			></path>
-		</svg> 
-		icon to edit a player, set
-		their primary position, and add secondary positions with a skill level (high, mid, or low). Click
-		the X to remove a player from a specific position. If a player has no remaining positions, they are
-		removed from the chart.
+		</svg>
+		icon to edit a player, set their primary position, and add secondary positions with a skill level
+		(high, mid, or low). Click the X to remove a player from a specific position. If a player has no
+		remaining positions, they are removed from the chart.
 	</p>
 
 	<p>
-		Use the 
+		Use the
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
 			<path
 				d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.28 7.28 0 0 0-1.63-.94l-.36-2.54A.5.5 0 0 0 13.9 2h-3.8a.5.5 0 0 0-.49.42l-.36 2.54c-.58.22-1.13.54-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 8.48a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32a.5.5 0 0 0 .6.22l2.39-.96c.5.4 1.05.72 1.63.94l.36 2.54a.5.5 0 0 0 .49.42h3.8a.5.5 0 0 0 .49-.42l.36-2.54c.58-.22 1.13-.54 1.63-.94l2.39.96a.5.5 0 0 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"
 			/>
 		</svg>
-		icon in the header to open Settings. From there you can turn on Show Secondary
-		Positions to include secondary roles in the lists, and toggle the
-		<TermTooltip
-			label="Player Skill Colour Gradient"
-			tooltip_id="skill-gradient-tooltip-how-to"
-		>
+		icon in the header to open Settings. From there you can turn on Show Secondary Positions to include
+		secondary roles in the lists, and toggle the
+		<TermTooltip label="Player Skill Colour Gradient" tooltip_id="skill-gradient-tooltip-how-to">
 			a subtle colour on each player row based on skill level:
 			<span class="tooltip-skill-high">high</span>,
 			<span class="tooltip-skill-mid">mid</span>, and
@@ -83,12 +79,30 @@
 		</TermTooltip>
 		on or off. Depth totals and header colours always use primary positions only.
 	</p>
-	
+
+	<h2>Sorting</h2>
+	<p>Open Settings and choose a Sort Mode for player lists:</p>
+	<div class="depth-legend" aria-label="Sort mode options">
+		<div class="depth-item">
+			<div>
+				<strong>Default</strong>
+				<p>Groups primary players above secondary players, then uses list order.</p>
+			</div>
+		</div>
+		<div class="depth-item">
+			<div>
+				<strong>Custom</strong>
+				<p>Uses your manual list order only, so any player can be moved anywhere.</p>
+			</div>
+		</div>
+	</div>
+
 	<h2>Depth & Colours</h2>
 
 	<p>
-		The header fraction is: primary players in that position / target depth for the formation. Target
-		depth is twice the starting requirement (for example, a two-CB formation targets four total CBs).
+		The header fraction is: primary players in that position / target depth for the formation.
+		Target depth is twice the starting requirement (for example, a two-CB formation targets four
+		total CBs).
 	</p>
 
 	<div class="depth-legend" aria-label="Depth colour legend">
@@ -138,8 +152,8 @@
 	</div>
 
 	<p>
-		Use Share Image to download a PNG of the position grid. Clear All Players will remove everyone after
-		confirmation. Your depth chart is saved automatically in this browser.
+		Use Share Image to download a PNG of the position grid. Clear All Players will remove everyone
+		after confirmation. Your depth chart is saved automatically in this browser.
 	</p>
 </section>
 

@@ -32,7 +32,9 @@ describe("player_list_item", () => {
 
 	it("uses configured skill for secondary role with mid fallback", () => {
 		expect(getSkillForPosition(player("A", "secondary", 1, "low"), Position.CentreMid)).toBe("low");
-		expect(getSkillForPosition(player("B", "secondary", 1, "high"), Position.CentreMid)).toBe("high");
+		expect(getSkillForPosition(player("B", "secondary", 1, "high"), Position.CentreMid)).toBe(
+			"high",
+		);
 		expect(getSkillForPosition(player("C", "secondary", 1), Position.CentreMid)).toBe("mid");
 	});
 
@@ -48,5 +50,23 @@ describe("player_list_item", () => {
 		const b = player("B", "secondary", 3);
 		expect(comparePlayersForPosition(a, b, Position.CentreMid)).toBeLessThan(0);
 		expect(comparePlayersForPosition(b, a, Position.CentreMid)).toBeGreaterThan(0);
+	});
+
+	it("sorts by weight only in custom mode", () => {
+		const primary = player("A", "primary", 9);
+		const secondary = player("B", "secondary", 0);
+		expect(
+			comparePlayersForPosition(primary, secondary, Position.CentreMid, "custom"),
+		).toBeGreaterThan(0);
+		expect(
+			comparePlayersForPosition(secondary, primary, Position.CentreMid, "custom"),
+		).toBeLessThan(0);
+	});
+
+	it("uses name as a tie-breaker in custom mode", () => {
+		const a = player("A", "secondary", 1);
+		const b = player("B", "secondary", 1);
+		expect(comparePlayersForPosition(a, b, Position.CentreMid, "custom")).toBeLessThan(0);
+		expect(comparePlayersForPosition(b, a, Position.CentreMid, "custom")).toBeGreaterThan(0);
 	});
 });

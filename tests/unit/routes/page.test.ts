@@ -15,6 +15,7 @@ describe("+page", () => {
 		settings.set({
 			show_skill_gradient: true,
 			show_secondary_positions: false,
+			player_sort_mode: "default",
 		});
 	});
 

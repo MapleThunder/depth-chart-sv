@@ -44,6 +44,37 @@
 				<button class="modal-close" aria-label="Close settings" on:click={close}>×</button>
 			</header>
 			<div class="modal-body">
+				<label class="setting-row" for="player-sort-mode">
+					<div>
+						<span class="setting-title setting-title-inline">
+							<span>Sort Mode</span>
+							<span class="setting-info-icon">
+								<TermTooltip label="i" tooltip_id="sort-mode-tooltip-settings">
+									Default keeps players grouped by role (primary before secondary), then orders by
+									list position. Custom uses your manual list order only, so you can place players
+									anywhere.
+								</TermTooltip>
+							</span>
+						</span>
+						<span class="setting-copy"
+							>Choose how players are ordered within each position list.</span
+						>
+					</div>
+					<select
+						id="player-sort-mode"
+						class="setting-select"
+						aria-label="Sort Mode"
+						value={$settings.player_sort_mode}
+						on:change={(event) => {
+							const target = event.currentTarget as HTMLSelectElement;
+							updateSetting("player_sort_mode", target.value as AppSettings["player_sort_mode"]);
+						}}
+					>
+						<option value="default">Default (Skill)</option>
+						<option value="custom">Custom (Manual)</option>
+					</select>
+				</label>
+
 				<label class="setting-row" for="show-skill-gradient">
 					<div>
 						<span class="setting-title">
@@ -176,6 +207,36 @@
 	.setting-title {
 		display: block;
 		font-weight: 600;
+	}
+
+	.setting-title-inline {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+	}
+
+	.setting-info-icon :global(.tooltip-trigger) {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.05rem;
+		height: 1.05rem;
+		border-radius: 999px;
+		font-size: 0.72rem;
+		font-weight: 700;
+		text-decoration: none;
+		background: hsl(210, 24%, 90%);
+		color: hsl(210, 40%, 28%);
+	}
+
+	.setting-select {
+		min-width: 175px;
+		padding: 0.35rem 0.45rem;
+		border-radius: 8px;
+		border: 1px solid var(--panel-border);
+		background: var(--white);
+		color: var(--text-dark);
+		font-size: 0.9rem;
 	}
 
 	.setting-copy {

@@ -1,4 +1,5 @@
 import type { Position } from "$lib/positions";
+import type { PlayerSortMode } from "$lib/stores/settings_store";
 import type { PlayerPosition, PlayerRecord } from "$lib/stores/player_store";
 
 export function getPositionForList(
@@ -31,7 +32,17 @@ export function comparePlayersForPosition(
 	a: PlayerRecord,
 	b: PlayerRecord,
 	position: Position,
+	sort_mode: PlayerSortMode = "default",
 ): number {
+	if (sort_mode === "custom") {
+		const weightA = getPositionForList(a, position)?.weight ?? Number.MAX_VALUE;
+		const weightB = getPositionForList(b, position)?.weight ?? Number.MAX_VALUE;
+		if (weightA !== weightB) {
+			return weightA - weightB;
+		}
+		return a.name.localeCompare(b.name);
+	}
+
 	const roleA = isSecondaryForPosition(a, position) ? 1 : 0;
 	const roleB = isSecondaryForPosition(b, position) ? 1 : 0;
 	if (roleA !== roleB) {
