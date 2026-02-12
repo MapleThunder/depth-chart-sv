@@ -16,6 +16,8 @@ export type PlayerRecord = {
 };
 
 const defaultValue: PlayerRecord[] = [];
+const PLAYER_STORE_VERSION = 2;
+const PLAYER_STORE_VERSION_KEY = "player_store_version";
 const initialValue = loadInitialValue();
 export const players = writable(initialValue);
 
@@ -23,6 +25,7 @@ export const players = writable(initialValue);
 const unsubscribeLocalStorage = players.subscribe((value) => {
 	if (browser) {
 		window.localStorage.setItem("player_store", JSON.stringify(value));
+		window.localStorage.setItem(PLAYER_STORE_VERSION_KEY, String(PLAYER_STORE_VERSION));
 	}
 });
 // onDestroy(unsubscribeLocalStorage);
@@ -34,14 +37,21 @@ function loadInitialValue(): PlayerRecord[] {
 	if (browser) {
 		const storedData = window.localStorage.getItem("player_store");
 		if (storedData) {
+			const stored_version = Number(window.localStorage.getItem(PLAYER_STORE_VERSION_KEY) ?? "0");
+			const migrate_legacy_primary_default = !Number.isFinite(stored_version) || stored_version < 2;
 			const parsed = JSON.parse(storedData) as PlayerRecord[];
-			return parsed.map((record) => normalizePlayerRecord(record));
+			return parsed.map((record) =>
+				normalizePlayerRecord(record, { migrate_legacy_primary_default }),
+			);
 		}
 	}
 	return defaultValue;
 }
 
-function normalizePositions(positions: PlayerPosition[]): PlayerPosition[] {
+function normalizePositions(
+	positions: PlayerPosition[],
+	options?: { migrate_legacy_primary_default?: boolean },
+): PlayerPosition[] {
 	if (positions.length === 0) {
 		return positions;
 	}
@@ -49,7 +59,7 @@ function normalizePositions(positions: PlayerPosition[]): PlayerPosition[] {
 	const normalized = positions.map((pos) => ({
 		...pos,
 		role: pos.role ?? "secondary",
-		skill: pos.skill === "medium" ? "mid" : (pos.skill ?? "mid"),
+		skill: pos.skill === "medium" ? "mid" : pos.skill,
 	}));
 
 	let primary_index = normalized.findIndex((pos) => pos.role === "primary");
@@ -64,13 +74,30 @@ function normalizePositions(positions: PlayerPosition[]): PlayerPosition[] {
 		}
 	});
 
+	normalized.forEach((pos) => {
+		if (pos.skill === "low" || pos.skill === "mid" || pos.skill === "high") {
+			if (
+				options?.migrate_legacy_primary_default &&
+				pos.role === "primary" &&
+				pos.skill === "mid"
+			) {
+				pos.skill = "high";
+			}
+			return;
+		}
+		pos.skill = pos.role === "primary" ? "high" : "mid";
+	});
+
 	return normalized;
 }
 
-function normalizePlayerRecord(record: PlayerRecord): PlayerRecord {
+function normalizePlayerRecord(
+	record: PlayerRecord,
+	options?: { migrate_legacy_primary_default?: boolean },
+): PlayerRecord {
 	return {
 		...record,
-		positions: normalizePositions(record.positions),
+		positions: normalizePositions(record.positions, options),
 	};
 }
 

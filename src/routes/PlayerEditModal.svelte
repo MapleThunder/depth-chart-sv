@@ -11,6 +11,7 @@
 	const dispatch = createEventDispatcher<{ close: void }>();
 
 	let edit_primary_position: Position | undefined;
+	let edit_primary_skill: SkillLevel = "high";
 	let edit_secondary_positions: Position[] = [];
 	let edit_secondary_skills: Partial<Record<Position, SkillLevel>> = {};
 	let initialized_for_player = "";
@@ -48,6 +49,10 @@
 			existing_player.positions.find((pos) => pos.role === "primary") ??
 			existing_player.positions[0];
 		edit_primary_position = primary_position?.position;
+		edit_primary_skill =
+			primary_position?.skill === "low" || primary_position?.skill === "mid"
+				? primary_position.skill
+				: "high";
 		edit_secondary_positions = existing_player.positions
 			.filter((pos) => pos.position !== primary_position?.position)
 			.map((pos) => pos.position);
@@ -89,9 +94,7 @@
 				role: pos === edit_primary_position ? "primary" : "secondary",
 				skill:
 					pos === edit_primary_position
-						? existing_position?.skill === "medium"
-							? "mid"
-							: (existing_position?.skill ?? "mid")
+						? edit_primary_skill
 						: (edit_secondary_skills[pos] ??
 							(existing_position?.skill === "medium"
 								? "mid"
@@ -195,13 +198,36 @@
 				<button class="modal-close" aria-label="Close" on:click={close}>×</button>
 			</header>
 			<form class="modal-body" on:submit|preventDefault={save}>
-				<label for="edit_primary">Primary Position</label>
-				<select name="edit_primary" bind:value={edit_primary_position} disabled={!playerName}>
-					<option value="">Select a primary position</option>
-					{#each all_position_options as option}
-						<option value={option.value}>{option.label}</option>
-					{/each}
-				</select>
+				<div class="primary-header-row">
+					<label for="edit_primary">Primary Position</label>
+					<label for="edit_primary_skill">Skill</label>
+				</div>
+				<div class="primary-row">
+					<select
+						id="edit_primary"
+						class="position-select"
+						name="edit_primary"
+						bind:value={edit_primary_position}
+						disabled={!playerName}
+					>
+						<option value="">Select a primary position</option>
+						{#each all_position_options as option}
+							<option value={option.value}>{option.label}</option>
+						{/each}
+					</select>
+					<select
+						id="edit_primary_skill"
+						class="skill-select"
+						name="edit_primary_skill"
+						bind:value={edit_primary_skill}
+						style={`--skill-color: ${getSkillColor(edit_primary_skill)}`}
+						disabled={!playerName}
+					>
+						<option value="high">High</option>
+						<option value="mid">Mid</option>
+						<option value="low">Low</option>
+					</select>
+				</div>
 
 				<div class="secondary-header">
 					<span class="secondary-title">Secondary Position(s)</span>
@@ -374,6 +400,28 @@
 		justify-content: space-between;
 		align-items: center;
 		gap: 0.6rem;
+	}
+
+	.primary-header-row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		align-items: end;
+		gap: 0.7rem;
+	}
+
+	.primary-header-row label {
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		font-size: 0.75rem;
+		color: hsl(210, 12%, 40%);
+	}
+
+	.primary-row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		align-items: center;
+		gap: 0.7rem;
+		margin-bottom: 0.2rem;
 	}
 
 	.secondary-add {

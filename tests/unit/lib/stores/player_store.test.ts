@@ -29,6 +29,21 @@ describe("player_store", () => {
 		expect(alex.positions[0].role).toBe("primary");
 		expect(alex.positions[0].skill).toBe("mid");
 		expect(alex.positions[1].role).toBe("secondary");
+		expect(alex.positions[1].skill).toBe("mid");
+	});
+
+	it("defaults missing primary skill to high", () => {
+		addPlayer({
+			name: "Taylor",
+			positions: [
+				{ position: Position.LeftFullback, weight: 0, role: "primary" },
+				{ position: Position.CentreBack, weight: 1, role: "secondary", skill: "low" },
+			],
+		});
+
+		const [taylor] = get(players);
+		const primary = taylor.positions.find((pos) => pos.role === "primary");
+		expect(primary?.skill).toBe("high");
 	});
 
 	it("merges new positions for an existing player without duplicates", () => {

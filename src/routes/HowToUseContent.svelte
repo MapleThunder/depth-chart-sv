@@ -57,9 +57,10 @@
 				d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm18-11.5a.996.996 0 0 0 0-1.41l-2.59-2.59a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0z"
 			></path>
 		</svg>
-		icon to edit a player, set their primary position, and add secondary positions with a skill level
-		(high, mid, or low). Click the X to remove a player from a specific position. If a player has no
-		remaining positions, they are removed from the chart.
+		icon to edit a player, set their primary position, choose ability level (high, mid, or low), and add
+		secondary positions. Click
+		the X to remove a player from a specific position. If a player has no remaining positions, they are
+		removed from the chart.
 	</p>
 
 	<p>
