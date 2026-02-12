@@ -87,7 +87,10 @@
 		<div class="depth-item">
 			<div>
 				<strong>Default</strong>
-				<p>Groups primary players above secondary players, then uses list order.</p>
+				<p>
+					Sorts players by skill, high to low, with primary positions above secondary when skill is 
+					equal.
+				</p>
 			</div>
 		</div>
 		<div class="depth-item">

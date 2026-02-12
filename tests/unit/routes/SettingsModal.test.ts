@@ -18,7 +18,7 @@ describe("SettingsModal", () => {
 		render(SettingsModal, { open: true });
 
 		expect(screen.getByLabelText("Sort Mode")).toBeTruthy();
-		expect(screen.getByText(/Default keeps players grouped by role/)).toBeTruthy();
+		expect(screen.getByText(/Default groups by role and list order/)).toBeTruthy();
 	});
 
 	it("updates sort mode in settings when the select changes", async () => {

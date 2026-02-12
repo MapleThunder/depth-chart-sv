@@ -50,15 +50,13 @@
 							<span>Sort Mode</span>
 							<span class="setting-info-icon">
 								<TermTooltip label="i" tooltip_id="sort-mode-tooltip-settings">
-									Default keeps players grouped by role (primary before secondary), then orders by
-									list position. Custom uses your manual list order only, so you can place players
-									anywhere.
+									Default groups by skill and list order. Custom follows your manual order only.
 								</TermTooltip>
 							</span>
 						</span>
-						<span class="setting-copy"
-							>Choose how players are ordered within each position list.</span
-						>
+						<span class="setting-copy">
+							Choose how players are ordered within each position list.
+						</span>
 					</div>
 					<select
 						id="player-sort-mode"
