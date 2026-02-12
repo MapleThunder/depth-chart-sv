@@ -23,8 +23,9 @@
 		</p>
 
 		<p>
-			Use the Show secondary positions toggle to include secondary roles in the lists. Depth totals
-			and header colours always use primary positions only.
+			Use the gear icon in the header to open Settings. From there you can turn on Show Secondary
+			Positions to include secondary roles in the lists, and toggle the Player Skill Colour Gradient
+			on or off. Depth totals and header colours always use primary positions only.
 		</p>
 
 		<h2>Depth & Colours</h2>

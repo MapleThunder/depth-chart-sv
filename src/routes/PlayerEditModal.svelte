@@ -308,6 +308,7 @@
 		border: var(--border);
 		border-radius: var(--border-radius);
 		box-shadow: var(--panel-shadow-soft);
+		overflow: hidden;
 	}
 
 	.modal-header {
@@ -315,7 +316,16 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.8rem 1rem 0.4rem;
-		border-bottom: var(--border);
+		border-radius: var(--border-radius) var(--border-radius) 0 0;
+		border-bottom: 1px solid color-mix(in srgb, var(--primary) 80%, #000 20%);
+		background:
+			linear-gradient(
+				135deg,
+				color-mix(in srgb, color-mix(in srgb, var(--primary), #000 8%) 80%, transparent),
+				color-mix(in srgb, var(--primary) 80%, transparent)
+			),
+			linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 70%);
+		color: var(--text-light);
 	}
 
 	.modal-header h3 {
@@ -324,13 +334,20 @@
 	}
 
 	.modal-close {
-		background: transparent;
-		border: 1px solid transparent;
+		background: rgba(255, 255, 255, 0.12);
+		border: 1px solid rgba(255, 255, 255, 0.25);
 		font-size: 1.3rem;
 		line-height: 1;
 		padding: 0.1rem 0.4rem;
 		border-radius: 999px;
 		cursor: pointer;
+		color: var(--text-light);
+	}
+
+	.modal-close:hover,
+	.modal-close:focus {
+		background: rgba(255, 255, 255, 0.24);
+		border-color: rgba(255, 255, 255, 0.35);
 	}
 
 	.modal-body {
