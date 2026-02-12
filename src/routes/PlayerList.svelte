@@ -16,6 +16,7 @@
 	import { getVisibleAssignedPosition } from "$lib/player_visibility";
 	import { formation } from "$lib/stores/formation_store";
 	import { players, removePlayer, type PlayerRecord, updatePlayers } from "$lib/stores/player_store";
+	import { settings } from "$lib/stores/settings_store";
 	import PlayerEditModal from "./PlayerEditModal.svelte";
 	import { flip } from "svelte/animate";
 
@@ -203,6 +204,7 @@
 					: ""}
 				class="item"
 				class:item-secondary={isSecondary(player)}
+				class:item-has-skill-gradient={$settings.show_skill_gradient}
 				data-index={i}
 				data-id={player.name ? player.name : JSON.stringify(player)}
 				data-grabY="0"
@@ -335,12 +337,16 @@
 		inset: 0 0 0 auto;
 		width: 36%;
 		background: linear-gradient(90deg, var(--skill-fade-color) 0%, var(--skill-color) 100%);
-		opacity: 0.35;
+		opacity: 0;
 		pointer-events: none;
 		z-index: 0;
 	}
 
-	.item.item-secondary::after {
+	.item.item-has-skill-gradient::after {
+		opacity: 0.35;
+	}
+
+	.item.item-secondary.item-has-skill-gradient::after {
 		opacity: 0.22;
 	}
 
