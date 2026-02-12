@@ -269,8 +269,18 @@
 		background-color: var(--paper);
 		padding: 1.2rem;
 		border-radius: var(--border-radius);
+		width: 100%;
 		max-width: var(--column);
-		border: var(--border);
+		margin-inline: auto;
+		box-sizing: border-box;
+		overflow-x: clip;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.how-to-use-content > * {
+		min-width: 0;
+		max-width: 100%;
 	}
 
 	.how-to-use-content h1 {
@@ -284,6 +294,11 @@
 
 	.how-to-use-content p {
 		margin-top: 0.4rem;
+		overflow-wrap: anywhere;
+	}
+
+	.how-to-use-content > p:last-child {
+		margin-bottom: 0.9rem;
 	}
 
 	.intro {
@@ -294,6 +309,18 @@
 		display: grid;
 		gap: 0.7rem;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
+		width: 100%;
+		min-width: 0;
+		height: auto;
+		overflow: visible;
+		border: 0;
+		outline: 0;
+		max-width: 100%;
+	}
+
+	.quick-start-grid > * {
+		min-width: 0;
+		max-width: 100%;
 	}
 
 	.step-card {
@@ -301,6 +328,9 @@
 		border-radius: 10px;
 		padding: 0.8rem;
 		background: linear-gradient(160deg, hsl(0, 0%, 100%), hsl(210, 18%, 97%));
+		min-width: 0;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
 	.step-number {
@@ -341,6 +371,7 @@
 		gap: 0.45rem;
 		background-color: var(--white);
 		font-size: 0.88rem;
+		min-width: 0;
 	}
 
 	.chip-icon {
@@ -349,6 +380,7 @@
 		justify-content: center;
 		min-width: 1.25rem;
 		height: 1.25rem;
+		flex-shrink: 0;
 		border-radius: 999px;
 		background: hsl(210, 26%, 91%);
 		font-weight: 700;
@@ -359,6 +391,11 @@
 	.chip-icon svg {
 		display: block;
 		fill: currentColor;
+	}
+
+	.action-chip > span:last-child {
+		min-width: 0;
+		overflow-wrap: anywhere;
 	}
 
 	.depth-legend {
@@ -374,6 +411,7 @@
 		padding: 0.65rem 0.75rem;
 		border: 1px solid transparent;
 		border-radius: 10px;
+		min-width: 0;
 	}
 
 	.depth-item p {
@@ -596,6 +634,7 @@
 	.row-demo-note-text {
 		display: inline;
 		min-width: 0;
+		overflow-wrap: anywhere;
 	}
 
 	.row-demo-inline-note :global(.tooltip-trigger) {
@@ -618,7 +657,15 @@
 	}
 
 	@media screen and (max-width: 900px) {
-		.quick-start-grid,
+		.how-to-use-content {
+			padding: 1rem;
+		}
+
+		.quick-start-grid {
+			display: flex;
+			flex-direction: column;
+		}
+
 		.action-strip {
 			grid-template-columns: 1fr;
 		}
@@ -634,6 +681,27 @@
 
 		.row-demo-control {
 			align-items: flex-start;
+		}
+
+		.action-chip {
+			border-radius: 12px;
+			align-items: flex-start;
+		}
+	}
+
+	@media screen and (max-width: 1080px) {
+		.quick-start-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media screen and (max-width: 560px) {
+		.how-to-use-content {
+			padding: 0.85rem;
+		}
+
+		.row-demo {
+			padding: 0.65rem;
 		}
 	}
 </style>
