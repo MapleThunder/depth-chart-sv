@@ -78,6 +78,10 @@
 <HowToUseModal open={show_how_to_use_modal} on:close={closeHowToUseModal} />
 
 <style>
+	:global(:root) {
+		--app-header-offset: 3.45rem;
+	}
+
 	header,
 	footer {
 		width: 100%;
@@ -87,9 +91,11 @@
 	}
 
 	header {
-		position: sticky;
+		position: fixed;
 		top: 0;
-		z-index: 1100;
+		left: 0;
+		right: 0;
+		z-index: 1000;
 		box-shadow: 0 8px 22px rgba(10, 14, 22, 0.2);
 	}
 
@@ -193,6 +199,7 @@
 
 	main {
 		flex-grow: 1;
+		padding-top: var(--app-header-offset);
 	}
 
 	footer {
@@ -228,6 +235,10 @@
 	}
 
 	@media screen and (max-width: 700px) {
+		:global(:root) {
+			--app-header-offset: 3.15rem;
+		}
+
 		div.header-content {
 			padding: 0.7rem var(--side);
 		}
