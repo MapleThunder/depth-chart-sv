@@ -149,6 +149,11 @@
 		return getSkillForPosition(player, position);
 	}
 
+	function getPrimaryPosition(player: PlayerRecord): Position | null {
+		const primary_position = player.positions.find((pos) => pos.role === "primary");
+		return primary_position?.position ?? null;
+	}
+
 	function getSkillColor(skill: "low" | "mid" | "high"): string {
 		if (skill === "low") return "hsl(8 78% 56%)";
 		if (skill === "high") return "hsl(120 52% 45%)";
@@ -258,6 +263,11 @@
 					<span class="player-name">{player.name}</span>
 					{#if isSecondary(player)}
 						<span class="meta-row">
+							{#if getPrimaryPosition(player)}
+								<span class="pill role-pill role-primary"
+									>Primary: {getPrimaryPosition(player)}</span
+								>
+							{/if}
 							<span class="pill role-pill role-secondary">2nd</span>
 						</span>
 					{/if}
@@ -325,7 +335,7 @@
 		background-color: var(--white);
 		border: 1px solid var(--panel-border);
 		border-radius: 10px;
-		padding: 0.15rem 0.25rem;
+		padding: 0.12rem 0.16rem;
 		user-select: none;
 		position: relative;
 		overflow: hidden;
@@ -371,12 +381,18 @@
 		flex-direction: column;
 		align-items: flex-start;
 		gap: 0.15rem;
-		padding: 0.1rem 0.25rem;
+		min-width: 0;
+		padding: 0.08rem 0.14rem;
 	}
 
 	.player-name {
+		display: block;
 		font-weight: 600;
 		line-height: 1.1;
+		max-width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.meta-row {
@@ -389,9 +405,9 @@
 	.pill {
 		display: inline-flex;
 		align-items: center;
-		padding: 0.05rem 0.4rem;
+		padding: 0.03rem 0.26rem;
 		border-radius: 999px;
-		font-size: 0.68rem;
+		font-size: 0.56rem;
 		line-height: 1.15;
 		border: 1px solid transparent;
 		background: rgba(255, 255, 255, 0.75);
@@ -403,9 +419,15 @@
 		background: rgba(219, 234, 254, 0.9);
 	}
 
+	.role-pill.role-primary {
+		border-color: rgba(30, 58, 138, 0.2);
+		color: #1e3a8a;
+		background: rgba(219, 234, 254, 0.78);
+	}
+
 	.buttons {
-		width: 32px;
-		min-width: 32px;
+		width: 24px;
+		min-width: 24px;
 		margin: auto 0;
 		display: flex;
 		flex-direction: column;
@@ -413,8 +435,8 @@
 
 	.buttons button {
 		cursor: pointer;
-		width: 18px;
-		height: 18px;
+		width: 20px;
+		height: 20px;
 		margin: 0 auto;
 		padding: 0;
 		border: 1px solid rgba(0, 0, 0, 0);
@@ -467,11 +489,47 @@
 		opacity: 1;
 	}
 
-	@media screen and (max-width: 700px) {
-		div.content {
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
+	@media screen and (min-width: 390px) {
+		.pill {
+			font-size: 0.6rem;
+			padding: 0.04rem 0.3rem;
+		}
+
+		.buttons {
+			width: 26px;
+			min-width: 26px;
+		}
+
+		.buttons button {
+			width: 22px;
+			height: 22px;
+		}
+	}
+
+	@media screen and (min-width: 768px) {
+		.item {
+			padding: 0.18rem 0.3rem;
+		}
+
+		.pill {
+			font-size: 0.64rem;
+		}
+	}
+
+	@media screen and (min-width: 810px) {
+		.buttons {
+			width: 32px;
+			min-width: 32px;
+		}
+
+		.buttons button {
+			width: 22px;
+			height: 22px;
+		}
+
+		.pill {
+			font-size: 0.68rem;
+			padding: 0.05rem 0.4rem;
 		}
 
 		.meta-row {

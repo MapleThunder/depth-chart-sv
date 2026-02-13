@@ -95,7 +95,7 @@
 
 	<div id="position-boxes" class="position-boxes">
 		{#each positions as positionData}
-			<PositionBox positionData={positionData} show_secondary_positions={$settings.show_secondary_positions} />
+			<PositionBox {positionData} show_secondary_positions={$settings.show_secondary_positions} />
 		{/each}
 	</div>
 </div>
@@ -108,18 +108,23 @@
 
 <style>
 	div#content {
-		display: grid;
-		grid-template-columns: minmax(280px, 360px) 1fr;
+		display: flex;
+		flex-direction: column;
 		gap: 1.2rem;
 		margin: 0 auto;
 		max-width: var(--column);
-		padding: 1.2rem var(--side);
+		padding: 0.7rem 0;
+		width: 100%;
 	}
 
 	div#left-column {
 		display: flex;
 		flex-direction: column;
 		gap: 1.2rem;
+	}
+
+	div#left-column > * {
+		margin-inline: var(--side);
 	}
 
 	div.form-wrapper {
@@ -140,9 +145,10 @@
 	}
 
 	.position-boxes {
-		padding: 0.5rem 0.3rem 1rem;
+		padding: 0.4rem 0 0.9rem;
 		display: grid;
-		gap: 12px;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.28rem;
 		grid-template-areas:
 			".. ST .."
 			"LW CAM RW"
@@ -217,17 +223,56 @@
 		border: 1px solid var(--panel-border);
 	}
 
-	@media screen and (max-width: 700px) {
+	@media screen and (min-width: 390px) {
+		.position-boxes {
+			gap: 0.4rem;
+		}
+	}
+
+	@media screen and (min-width: 768px) {
 		div#content {
-			display: flex;
-			flex-direction: column;
-			padding: 0.7rem var(--side);
+			padding: 0.9rem 0;
 		}
 
 		.position-boxes {
-			padding: 16px 0;
-			grid-gap: 10px;
-			margin-top: 10px;
+			padding: 0.45rem 0 1rem;
+			gap: 0.55rem;
+		}
+	}
+
+	@media screen and (min-width: 810px) {
+		div#content {
+			display: grid;
+			grid-template-columns: minmax(280px, 340px) 1fr;
+			align-items: start;
+			gap: 1rem;
+			padding: 1.1rem var(--side);
+		}
+
+		div#left-column > * {
+			margin-inline: 0;
+		}
+
+		.position-boxes {
+			padding: 0.5rem 0.2rem 1rem;
+			gap: 0.75rem;
+		}
+	}
+
+	@media screen and (min-width: 1366px) {
+		div#content {
+			grid-template-columns: minmax(300px, 360px) 1fr;
+			gap: 1.2rem;
+		}
+
+		.position-boxes {
+			gap: 0.85rem;
+		}
+	}
+
+	@media screen and (min-width: 1920px) {
+		.position-boxes {
+			gap: 1rem;
 		}
 	}
 </style>
