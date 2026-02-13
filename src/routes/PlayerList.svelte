@@ -330,12 +330,12 @@
 		box-sizing: border-box;
 		display: inline-flex;
 		width: 100%;
-		min-height: 2.1em;
+		min-height: 1.85em;
 		margin-bottom: 0.2em;
 		background-color: var(--white);
 		border: 1px solid var(--panel-border);
 		border-radius: 10px;
-		padding: 0.12rem 0.16rem;
+		padding: 0.07rem 0.08rem;
 		user-select: none;
 		position: relative;
 		overflow: hidden;
@@ -380,15 +380,16 @@
 		flex: 1;
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 0.15rem;
+		gap: 0.08rem;
 		min-width: 0;
-		padding: 0.08rem 0.14rem;
+		padding: 0.02rem 0.06rem;
 	}
 
 	.player-name {
 		display: block;
+		font-size: 0.66rem;
 		font-weight: 600;
-		line-height: 1.1;
+		line-height: 1.05;
 		max-width: 100%;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -398,16 +399,16 @@
 	.meta-row {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.25rem;
+		gap: 0.12rem;
 		flex-wrap: wrap;
 	}
 
 	.pill {
 		display: inline-flex;
 		align-items: center;
-		padding: 0.03rem 0.26rem;
+		padding: 0.02rem 0.2rem;
 		border-radius: 999px;
-		font-size: 0.56rem;
+		font-size: 0.52rem;
 		line-height: 1.15;
 		border: 1px solid transparent;
 		background: rgba(255, 255, 255, 0.75);
@@ -426,8 +427,8 @@
 	}
 
 	.buttons {
-		width: 24px;
-		min-width: 24px;
+		width: 20px;
+		min-width: 20px;
 		margin: auto 0;
 		display: flex;
 		flex-direction: column;
@@ -435,12 +436,17 @@
 
 	.buttons button {
 		cursor: pointer;
-		width: 20px;
-		height: 20px;
+		width: 16px;
+		height: 16px;
 		margin: 0 auto;
 		padding: 0;
 		border: 1px solid rgba(0, 0, 0, 0);
 		background-color: inherit;
+	}
+
+	.buttons button svg {
+		width: 14px;
+		height: 14px;
 	}
 
 	.buttons button:focus {
@@ -448,7 +454,7 @@
 	}
 
 	.buttons.actions {
-		gap: 0.2rem;
+		gap: 0.08rem;
 	}
 
 	.buttons.actions button {
@@ -456,7 +462,7 @@
 		align-items: center;
 		justify-content: center;
 		border-radius: 999px;
-		padding: 0.15rem;
+		padding: 0.04rem;
 		border: 1px solid transparent;
 		background: transparent;
 	}
@@ -490,29 +496,37 @@
 	}
 
 	@media screen and (min-width: 390px) {
+		.player-name {
+			font-size: 0.7rem;
+		}
+
 		.pill {
-			font-size: 0.6rem;
-			padding: 0.04rem 0.3rem;
+			font-size: 0.55rem;
+			padding: 0.03rem 0.24rem;
 		}
 
 		.buttons {
-			width: 26px;
-			min-width: 26px;
+			width: 22px;
+			min-width: 22px;
 		}
 
 		.buttons button {
-			width: 22px;
-			height: 22px;
+			width: 18px;
+			height: 18px;
 		}
 	}
 
 	@media screen and (min-width: 768px) {
 		.item {
-			padding: 0.18rem 0.3rem;
+			padding: 0.15rem 0.2rem;
+		}
+
+		.player-name {
+			font-size: 0.74rem;
 		}
 
 		.pill {
-			font-size: 0.64rem;
+			font-size: 0.58rem;
 		}
 	}
 
