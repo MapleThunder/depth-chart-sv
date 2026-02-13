@@ -8,7 +8,9 @@
 	export let positionData: PositionData;
 	export let show_secondary_positions = false;
 
-	$: visible_positions = new Set(getPositionSelectOptions($formation).map((option) => option.value));
+	$: visible_positions = new Set(
+		getPositionSelectOptions($formation).map((option) => option.value),
+	);
 
 	$: primary_players = $players
 		.filter((plyr) => getVisibleAssignedPosition(plyr, visible_positions) === positionData.position)
@@ -71,13 +73,14 @@
 		border: var(--border);
 		border-radius: var(--border-radius);
 		background-color: var(--paper);
-		width: 300px;
-		min-height: 150px;
+		width: 100%;
+		min-width: 0;
+		min-height: 8.2rem;
 		box-shadow: var(--panel-shadow-soft);
 	}
 
 	div.position-header {
-		padding: 0.55rem 0.7rem;
+		padding: 0.38rem 0.34rem;
 		border-bottom: var(--border);
 		border-radius: var(--border-radius) var(--border-radius) 0 0;
 		font-weight: 600;
@@ -86,9 +89,22 @@
 	div.header-content {
 		display: flex;
 		justify-content: space-between;
-		gap: 5px;
+		gap: 0.35rem;
 		align-items: center;
-		font-size: 0.95rem;
+		font-size: clamp(0.58rem, 2.2vw, 0.9rem);
+	}
+
+	div.position-header span {
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	div.depth-ratio {
+		font-size: clamp(0.53rem, 1.7vw, 0.78rem);
+		white-space: nowrap;
+		min-width: fit-content;
 	}
 
 	div.player-list {
@@ -96,21 +112,40 @@
 		height: 100%;
 	}
 
-	@media screen and (max-width: 700px) {
+	@media screen and (min-width: 390px) {
 		div.position-box-wrapper {
-			max-width: 132px;
-			font-size: 0.85rem;
+			min-height: 9rem;
+		}
+	}
+
+	@media screen and (min-width: 768px) {
+		div.position-box-wrapper {
+			width: 100%;
 		}
 
-		div.position-header span {
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
+		div.position-header {
+			padding: 0.5rem 0.55rem;
+		}
+	}
+
+	@media screen and (min-width: 810px) {
+		div.position-box-wrapper {
+			min-height: 9.4rem;
+		}
+
+		div.header-content {
+			font-size: 0.9rem;
+			gap: 0.5rem;
 		}
 
 		div.depth-ratio {
-			font-size: 0.7rem;
-			min-width: fit-content;
+			font-size: 0.76rem;
+		}
+	}
+
+	@media screen and (min-width: 1366px) {
+		div.position-box-wrapper {
+			min-height: 9.8rem;
 		}
 	}
 </style>
