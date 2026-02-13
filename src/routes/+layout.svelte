@@ -87,6 +87,9 @@
 	}
 
 	header {
+		position: sticky;
+		top: 0;
+		z-index: 1100;
 		box-shadow: 0 8px 22px rgba(10, 14, 22, 0.2);
 	}
 
