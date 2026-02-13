@@ -18,7 +18,6 @@
 		if (skill === "high") return "hsl(120 52% 45% / 0)";
 		return "hsl(46 92% 54% / 0)";
 	}
-
 </script>
 
 <section class="how-to-use-content">
@@ -76,10 +75,9 @@
 				d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm18-11.5a.996.996 0 0 0 0-1.41l-2.59-2.59a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0z"
 			></path>
 		</svg>
-		icon to edit a player, set their primary position, choose ability level (high, mid, or low), and add
-		secondary positions. Click
-		the X to remove a player from a specific position. If a player has no remaining positions, they are
-		removed from the chart.
+		icon to edit a player, set their primary position, choose ability level (high, mid, or low), and
+		add secondary positions. Click the X to remove a player from a specific position. If a player has
+		no remaining positions, they are removed from the chart.
 	</p>
 
 	<p>
@@ -107,7 +105,7 @@
 			<div>
 				<strong>Default</strong>
 				<p>
-					Sorts players by skill, high to low, with primary positions above secondary when skill is 
+					Sorts players by skill, high to low, with primary positions above secondary when skill is
 					equal.
 				</p>
 			</div>
@@ -154,8 +152,8 @@
 
 	<h2>Reading Player Rows</h2>
 	<p>
-		Use this demo row to see what each visual cue means. Change the options to preview how settings affect
-		what you see in each position list.
+		Use this demo row to see what each visual cue means. Change the options to preview how settings
+		affect what you see in each position list.
 	</p>
 	<section class="row-demo" aria-label="Player row demo">
 		<div class="row-demo-controls">
@@ -215,7 +213,9 @@
 						Only shown when a player appears under a secondary position
 					</TermTooltip>
 				</span>
-				<span class="row-demo-note-text"><strong>Primary: ST</strong> identifies the player’s main role.</span>
+				<span class="row-demo-note-text"
+					><strong>Primary: ST</strong> identifies the player’s main role.</span
+				>
 			</p>
 			<p class="row-demo-note-row">
 				<span class="row-demo-inline-note">
@@ -228,7 +228,9 @@
 				>
 			</p>
 			<p class="row-demo-note-row">
-				<span class="row-demo-inline-note row-demo-inline-note--placeholder" aria-hidden="true">i</span>
+				<span class="row-demo-inline-note row-demo-inline-note--placeholder" aria-hidden="true"
+					>i</span
+				>
 				<span class="row-demo-note-text"
 					><strong>Right-side gradient</strong> reflects skill level when enabled in Settings.</span
 				>
@@ -273,7 +275,7 @@
 		max-width: var(--column);
 		margin-inline: auto;
 		box-sizing: border-box;
-		overflow-x: clip;
+		overflow-x: hidden;
 		display: flex;
 		flex-direction: column;
 	}

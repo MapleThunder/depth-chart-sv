@@ -138,8 +138,7 @@
 		padding: 1rem 1rem 1.4rem;
 		overflow: auto;
 		min-height: 0;
-		display: flex;
-		justify-content: center;
+		display: block;
 	}
 
 	@media screen and (max-width: 900px) {
