@@ -149,6 +149,11 @@
 		return getSkillForPosition(player, position);
 	}
 
+	function getPrimaryPosition(player: PlayerRecord): Position | null {
+		const primary_position = player.positions.find((pos) => pos.role === "primary");
+		return primary_position?.position ?? null;
+	}
+
 	function getSkillColor(skill: "low" | "mid" | "high"): string {
 		if (skill === "low") return "hsl(8 78% 56%)";
 		if (skill === "high") return "hsl(120 52% 45%)";
@@ -254,14 +259,17 @@
 					</button>
 				</div>
 
-				<div class="content">
-					<span class="player-name">{player.name}</span>
-					{#if isSecondary(player)}
-						<span class="meta-row">
-							<span class="pill role-pill role-secondary">2nd</span>
-						</span>
-					{/if}
-				</div>
+					<div class="content">
+						<span class="player-name">{player.name}</span>
+						{#if isSecondary(player)}
+							<span class="meta-row">
+								{#if getPrimaryPosition(player)}
+									<span class="pill role-pill role-primary">Primary: {getPrimaryPosition(player)}</span>
+								{/if}
+								<span class="pill role-pill role-secondary">2nd</span>
+							</span>
+						{/if}
+					</div>
 
 				<div class="buttons actions">
 					<button
@@ -401,6 +409,12 @@
 		border-color: rgba(30, 64, 175, 0.28);
 		color: #1e40af;
 		background: rgba(219, 234, 254, 0.9);
+	}
+
+	.role-pill.role-primary {
+		border-color: rgba(30, 58, 138, 0.2);
+		color: #1e3a8a;
+		background: rgba(219, 234, 254, 0.78);
 	}
 
 	.buttons {

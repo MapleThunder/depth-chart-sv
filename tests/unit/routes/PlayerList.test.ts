@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
-import { render, screen, waitFor } from "@testing-library/svelte";
+import { render, screen, waitFor, within } from "@testing-library/svelte";
 import PlayerList from "../../../src/routes/PlayerList.svelte";
 import { Position } from "$lib/positions";
 import { Formation, formation } from "$lib/stores/formation_store";
@@ -52,5 +52,10 @@ describe("PlayerList", () => {
 		await waitFor(() => {
 			expect(getOrder()).toEqual(["Secondary CM", "Primary CM"]);
 		});
+
+		const rows = container.querySelectorAll("section.list [role='listitem']");
+		expect(within(rows[0] as HTMLElement).getByText("Primary: ST")).toBeTruthy();
+		expect(within(rows[0] as HTMLElement).getByText("2nd")).toBeTruthy();
+		expect(within(rows[1] as HTMLElement).queryByText(/Primary:/)).toBeNull();
 	});
 });
