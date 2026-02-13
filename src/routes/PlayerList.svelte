@@ -329,13 +329,14 @@
 	.item {
 		box-sizing: border-box;
 		display: inline-flex;
+		align-items: center;
 		width: 100%;
-		min-height: 1.85em;
+		min-height: 1.7em;
 		margin-bottom: 0.2em;
 		background-color: var(--white);
 		border: 1px solid var(--panel-border);
 		border-radius: 10px;
-		padding: 0.07rem 0.08rem;
+		padding: 0.04rem 0.05rem;
 		user-select: none;
 		position: relative;
 		overflow: hidden;
@@ -370,7 +371,7 @@
 	}
 
 	.item > * {
-		margin: auto;
+		margin: 0;
 		position: relative;
 		z-index: 1;
 	}
@@ -382,12 +383,12 @@
 		align-items: flex-start;
 		gap: 0.08rem;
 		min-width: 0;
-		padding: 0.02rem 0.06rem;
+		padding: 0.01rem 0.02rem 0.01rem 0;
 	}
 
 	.player-name {
 		display: block;
-		font-size: 0.66rem;
+		font-size: 0.62rem;
 		font-weight: 600;
 		line-height: 1.05;
 		max-width: 100%;
@@ -427,17 +428,17 @@
 	}
 
 	.buttons {
-		width: 20px;
-		min-width: 20px;
-		margin: auto 0;
+		width: 18px;
+		min-width: 18px;
+		margin: 0;
 		display: flex;
 		flex-direction: column;
 	}
 
 	.buttons button {
 		cursor: pointer;
-		width: 16px;
-		height: 16px;
+		width: 15px;
+		height: 15px;
 		margin: 0 auto;
 		padding: 0;
 		border: 1px solid rgba(0, 0, 0, 0);
@@ -445,8 +446,8 @@
 	}
 
 	.buttons button svg {
-		width: 14px;
-		height: 14px;
+		width: 13px;
+		height: 13px;
 	}
 
 	.buttons button:focus {
@@ -497,7 +498,7 @@
 
 	@media screen and (min-width: 390px) {
 		.player-name {
-			font-size: 0.7rem;
+			font-size: 0.66rem;
 		}
 
 		.pill {
@@ -506,13 +507,13 @@
 		}
 
 		.buttons {
-			width: 22px;
-			min-width: 22px;
+			width: 20px;
+			min-width: 20px;
 		}
 
 		.buttons button {
-			width: 18px;
-			height: 18px;
+			width: 16px;
+			height: 16px;
 		}
 	}
 
