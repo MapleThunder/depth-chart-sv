@@ -121,10 +121,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.2rem;
-	}
-
-	div#left-column > * {
-		margin-inline: var(--side);
+		padding-inline: var(--side);
 	}
 
 	div.form-wrapper {
@@ -249,8 +246,8 @@
 			padding: 1.1rem var(--side);
 		}
 
-		div#left-column > * {
-			margin-inline: 0;
+		div#left-column {
+			padding-inline: 0;
 		}
 
 		.position-boxes {
