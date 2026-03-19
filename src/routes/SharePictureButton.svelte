@@ -1,33 +1,33 @@
 <script lang="ts">
-  import Icon from "@iconify/svelte";
-  import html2canvas from "html2canvas";
+	import Icon from "@iconify/svelte";
+	import html2canvas from "html2canvas";
 
-  async function shareDepthChartPicture() {
-		const element = document.getElementById('position-boxes');
+	async function shareDepthChartPicture() {
+		const element = document.getElementById("position-boxes");
 		if (!element) return;
 
 		try {
 			const canvas = await html2canvas(element, {
-				backgroundColor: 'hsl(132, 96%, 31%)',
+				backgroundColor: "hsl(132, 96%, 31%)",
 			});
-			const dataURL = canvas.toDataURL('image/png'); // Or 'image/jpeg'
+			const dataURL = canvas.toDataURL("image/png"); // Or 'image/jpeg'
 
-			const link = document.createElement('a');
+			const link = document.createElement("a");
 			link.href = dataURL;
-			link.download = 'depth-chart.png'; // Set the default filename
+			link.download = "depth-chart.png"; // Set the default filename
 			link.click();
 		} catch (error) {
-			console.error('Error capturing image:', error);
+			console.error("Error capturing image:", error);
 		}
 	}
 </script>
 
 <button id="export" type="button" on:click|preventDefault={() => shareDepthChartPicture()}>
-  Share Image <Icon icon="fa:share-square" width="16px" height="16px" />
+	Share Image <Icon icon="fa:share-square" width="16px" height="16px" />
 </button>
 
 <style>
-  	button#export {
+	button#export {
 		border: 1px solid transparent;
 		padding: 0.6rem 0.9rem;
 		width: 100%;

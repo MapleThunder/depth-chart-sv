@@ -5,7 +5,7 @@ import { browser } from "$app/environment";
 export enum Formation {
 	ThreeFourThree = "343",
 	ThreeFourOneTwo = "3412",
-	ThreeFiveOne = "351",
+	ThreeFiveTwo = "352",
 	FourTwoThreeOne = "4231",
 	FourTwoFour = "424",
 	FourThreeThree = "433",
@@ -29,7 +29,7 @@ export function getFormationSelectOptions(): FormationOption[] {
 
 const defaultValue = Formation.FourFourTwo;
 const initialValue = browser
-	? window.localStorage.getItem("formation_store") ?? defaultValue
+	? (window.localStorage.getItem("formation_store") ?? defaultValue)
 	: defaultValue;
 
 export const formation = writable(initialValue);

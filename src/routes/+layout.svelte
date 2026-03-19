@@ -1,7 +1,27 @@
 <script lang="ts">
 	import "../styles.css";
+	import HowToUseModal from "./HowToUseModal.svelte";
+	import SettingsModal from "./SettingsModal.svelte";
 
 	const currentYear = new Date().getFullYear();
+	let show_settings_modal = false;
+	let show_how_to_use_modal = false;
+
+	function openSettingsModal(): void {
+		show_settings_modal = true;
+	}
+
+	function closeSettingsModal(): void {
+		show_settings_modal = false;
+	}
+
+	function openHowToUseModal(): void {
+		show_how_to_use_modal = true;
+	}
+
+	function closeHowToUseModal(): void {
+		show_how_to_use_modal = false;
+	}
 </script>
 
 <svelte:head>
@@ -13,7 +33,29 @@
 		<a id="home-link" href="/">Depth Chart</a>
 
 		<div class="header-controls">
-			<a href="/how-to-use" class="help-link">How to Use</a>
+			<button type="button" class="help-link" on:click={openHowToUseModal}>How to Use</button>
+			<button
+				type="button"
+				class="help-icon-link"
+				aria-label="How to Use"
+				title="How to Use"
+				on:click={openHowToUseModal}
+			>
+				?
+			</button>
+			<button
+				type="button"
+				class="settings-link"
+				aria-label="Settings"
+				title="Settings"
+				on:click={openSettingsModal}
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+					<path
+						d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.28 7.28 0 0 0-1.63-.94l-.36-2.54A.5.5 0 0 0 13.9 2h-3.8a.5.5 0 0 0-.49.42l-.36 2.54c-.58.22-1.13.54-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 8.48a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32a.5.5 0 0 0 .6.22l2.39-.96c.5.4 1.05.72 1.63.94l.36 2.54a.5.5 0 0 0 .49.42h3.8a.5.5 0 0 0 .49-.42l.36-2.54c.58-.22 1.13-.54 1.63-.94l2.39.96a.5.5 0 0 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"
+					/>
+				</svg>
+			</button>
 		</div>
 	</div>
 </header>
@@ -22,19 +64,24 @@
 
 <footer>
 	<div id="footer-content">
-		<span>&copy; {currentYear} Niko Bentley</span>
-		<ul>
-			<li><a href="/how-to-use" class="help-link">How to Use the App</a></li>
-			<li>
-				<a href="https://github.com/MapleThunder/depth-chart-sv" class="help-link">
-					Source on Github
-				</a>
-			</li>
-		</ul>
+		<span>
+			&copy; {currentYear}
+			<a href="http://CodBodDesigns.ca" target="_blank" rel="noopener noreferrer">
+				Cod Bod Designs
+			</a>
+		</span>
+		<button type="button" class="help-link" on:click={openHowToUseModal}>How to Use the App</button>
 	</div>
 </footer>
 
+<SettingsModal open={show_settings_modal} on:close={closeSettingsModal} />
+<HowToUseModal open={show_how_to_use_modal} on:close={closeHowToUseModal} />
+
 <style>
+	:global(:root) {
+		--app-header-offset: 3.45rem;
+	}
+
 	header,
 	footer {
 		width: 100%;
@@ -44,6 +91,11 @@
 	}
 
 	header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
 		box-shadow: 0 8px 22px rgba(10, 14, 22, 0.2);
 	}
 
@@ -65,14 +117,77 @@
 		align-items: center;
 	}
 
+	.settings-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		border: none;
+		background: transparent;
+		color: var(--text-light);
+		transition: color 0.2s ease;
+	}
+
+	.settings-link svg {
+		display: block;
+		fill: currentColor;
+	}
+
+	.settings-link:hover,
+	.settings-link:focus {
+		color: var(--accent);
+	}
+
+	.help-icon-link {
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 1.35rem;
+		height: 1.35rem;
+		padding: 0;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.45);
+		background: rgba(255, 255, 255, 0.16);
+		color: var(--text-light);
+		font-size: 0.86rem;
+		font-weight: 700;
+		line-height: 1;
+		cursor: pointer;
+		transition:
+			background-color 0.2s ease,
+			border-color 0.2s ease,
+			color 0.2s ease;
+	}
+
+	.help-icon-link:hover,
+	.help-icon-link:focus {
+		background: rgba(255, 255, 255, 0.28);
+		border-color: rgba(255, 255, 255, 0.62);
+		color: var(--accent);
+	}
+
 	a {
 		color: var(--text-light);
 		text-decoration: none;
 		border-bottom: 2px solid transparent;
 		transition: border-color 0.2s ease;
 	}
+
+	.help-link {
+		color: var(--text-light);
+		font: inherit;
+		background: transparent;
+		border: none;
+		border-bottom: 2px solid transparent;
+		padding: 0;
+		cursor: pointer;
+		transition: border-color 0.2s ease;
+	}
+
 	a:hover,
-	a:focus {
+	a:focus,
+	.help-link:hover,
+	.help-link:focus {
 		border-bottom: 2px solid var(--accent);
 	}
 
@@ -84,6 +199,7 @@
 
 	main {
 		flex-grow: 1;
+		padding-top: var(--app-header-offset);
 	}
 
 	footer {
@@ -99,27 +215,23 @@
 		width: 100%;
 		height: 100%;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-	}
-
-	#footer-content > ul {
-		list-style: none;
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		margin: 8px 0 0;
-		padding: 0;
-	}
-
-	#footer-content > ul li::before {
-		content: "+ ";
+		gap: clamp(1rem, 2rem, 4rem);
 	}
 
 	@media screen and (max-width: 700px) {
+		:global(:root) {
+			--app-header-offset: 3.15rem;
+		}
+
 		div.header-content {
-			padding: 0 5px;
+			padding: 0.7rem var(--side);
+		}
+
+		#footer-content {
+			flex-direction: column;
 		}
 
 		a#home-link {
@@ -127,8 +239,12 @@
 			width: fit-content;
 		}
 
-		div.header-controls a.help-link {
+		div.header-controls .help-link {
 			display: none;
+		}
+
+		div.header-controls .help-icon-link {
+			display: inline-flex;
 		}
 	}
 </style>

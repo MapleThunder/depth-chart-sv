@@ -31,10 +31,8 @@ export type PositionOption = { label: string; value: Position };
  * Given a position code, returns the corresponding position label.
  */
 export function getPositionUILabel(position_code: string): string {
-	const position_key = Object.entries(Position)
-		.find(([_, val]) => val === position_code)?.[0];
+	const position_key = Object.entries(Position).find(([_, val]) => val === position_code)?.[0];
 	if (position_key === undefined) {
-
 		console.error(`No position found for code: ${position_code}`);
 		return "";
 	}
@@ -102,8 +100,8 @@ export function getPositionsForFormation(formation: string): PositionData[] {
 			return [...FRONT_THREE, ...MID_FOUR, ...BACK_THREE, KEEPER];
 		case Formation.ThreeFourOneTwo:
 			return [...FRONT_TWO, CENTRE_ATT_MID, ...MID_FOUR, ...BACK_THREE, KEEPER];
-		case Formation.ThreeFiveOne:
-			return [...FRONT_ONE, ...MID_FIVE, ...BACK_THREE, KEEPER];
+		case Formation.ThreeFiveTwo:
+			return [...FRONT_TWO, ...MID_FIVE, ...BACK_THREE, KEEPER];
 		case Formation.FourTwoThreeOne:
 			return [...FRONT_THREE, ...MID_THREE_ATT, ...BACK_FOUR, KEEPER];
 		case Formation.FourTwoFour:
