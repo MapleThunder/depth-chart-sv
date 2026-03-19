@@ -100,8 +100,8 @@ export function getPositionsForFormation(formation: string): PositionData[] {
 			return [...FRONT_THREE, ...MID_FOUR, ...BACK_THREE, KEEPER];
 		case Formation.ThreeFourOneTwo:
 			return [...FRONT_TWO, CENTRE_ATT_MID, ...MID_FOUR, ...BACK_THREE, KEEPER];
-		case Formation.ThreeFiveOne:
-			return [...FRONT_ONE, ...MID_FIVE, ...BACK_THREE, KEEPER];
+		case Formation.ThreeFiveTwo:
+			return [...FRONT_TWO, ...MID_FIVE, ...BACK_THREE, KEEPER];
 		case Formation.FourTwoThreeOne:
 			return [...FRONT_THREE, ...MID_THREE_ATT, ...BACK_FOUR, KEEPER];
 		case Formation.FourTwoFour:

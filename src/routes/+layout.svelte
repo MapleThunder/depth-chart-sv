@@ -221,19 +221,6 @@
 		gap: clamp(1rem, 2rem, 4rem);
 	}
 
-	#footer-content > ul {
-		list-style: none;
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		margin: 8px 0 0;
-		padding: 0;
-	}
-
-	#footer-content > ul li::before {
-		content: "+ ";
-	}
-
 	@media screen and (max-width: 700px) {
 		:global(:root) {
 			--app-header-offset: 3.15rem;
