@@ -144,7 +144,7 @@
 	.position-boxes {
 		padding: 0.4rem 0 0.9rem;
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		grid-template-columns: repeat(3, minmax(0, auto));
 		gap: 0.28rem;
 		grid-template-areas:
 			".. ST .."
@@ -152,6 +152,7 @@
 			"LM CM RM"
 			"LB CB RB"
 			".. GK ..";
+		max-width: 1000px;
 	}
 
 	.unassigned-panel {
