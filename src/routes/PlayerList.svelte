@@ -523,7 +523,7 @@
 		}
 
 		.player-name {
-			font-size: 0.74rem;
+			font-size: .85rem;
 		}
 
 		.pill {
